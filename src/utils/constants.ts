@@ -6,19 +6,23 @@ export interface Item {
   route: string,
 }
 
+const fundamentalRoot = '/0-fundamentals'
+const basicBuildingBlockRoot = '/1-building-blocks'
+
+
 // sections -------------------------------------------
 export const sections: Item[] = [
   {
     name: 'RxJs Fundamentals',
     image: '../../assets/images/fundamentals.png',
     description: 'Foundation of RxJS',
-    route: '/#/0-fundamentals',
+    route: fundamentalRoot,
   },
   {
     name: 'RxJS building blocks',
     image: '../../assets/images/building-blocks.png',
     description: 'Playing around with the basics',
-    route: '/#/1-building-blocks',
+    route: basicBuildingBlockRoot,
   },
   // {
   //   name: 'Creating observables',
@@ -26,18 +30,18 @@ export const sections: Item[] = [
   //   description: 'Creating our own observables',
   //   route: '/creating-observables',
   // },
-  {
-    name: 'Operators',
-    image: '../../assets/images/operators.png',
-    description: 'Lets see what these so called operators are all about',
-    route: '/operators',
-  },
-  {
-    name: 'Subjects',
-    image: '../../assets/images/subjects.png',
-    description: 'Think of radios',
-    route: '/subjects',
-  },
+  // {
+  //   name: 'Operators',
+  //   image: '../../assets/images/operators.png',
+  //   description: 'Lets see what these so called operators are all about',
+  //   route: '/operators',
+  // },
+  // {
+  //   name: 'Subjects',
+  //   image: '../../assets/images/subjects.png',
+  //   description: 'Think of radios',
+  //   route: '/subjects',
+  // },
   // {
   //   name: 'Schedulers',
   //   image: '../../assets/images/scheduler.png',
@@ -56,62 +60,63 @@ export const sections: Item[] = [
   //   description: 'Testing our reactive code',
   //   route: '/testing',
   // },
-  {
-    name: 'Projects',
-    image: '../../assets/images/projects.png',
-    description: 'Learning by doing',
-    route: '/projects',
-  },
+  // {
+  //   name: 'Projects',
+  //   image: '../../assets/images/projects.png',
+  //   description: 'Learning by doing',
+  //   route: '/projects',
+  // },
 ]
 
+// lessons -------------------------------------------
 export const fundamentalConceptsLessons: Item[] = [
   {
     name: 'Iterator pattern',
     image: 'https://source.unsplash.com/random/?iterator',
     description: 'Iterator pattern',
-    route: 'iterator-pattern',
+    route: fundamentalRoot + '/iterator',
   },
   {
     name: 'Observer pattern',
     image: 'https://source.unsplash.com/random/?observer',
     description: 'Observer pattern',
-    route: 'observer-pattern',
+    route: fundamentalRoot + '/observer',
   },
 ]
-// lessons -------------------------------------------
+
 export const observableLessons: Item[] = [
   // building blocks
   {
     name: 'Basic building blocks',
     image: 'https://source.unsplash.com/random/?blocks',
     description: 'Observable, observer, subscription, subscriber',
-    route: 'basic-building-blocks',
+    route: basicBuildingBlockRoot + '/basics',
   },
   // unsubscribe exercises
   {
     name: 'Observer notifications',
     image: 'https://source.unsplash.com/random/?observer',
     description: 'Observer notifications',
-    route: 'observer-notifications',
+    route: basicBuildingBlockRoot + '/observer-notifications',
   },
   {
     name: 'Subscription management',
     image: 'https://source.unsplash.com/random/?subscription',
     description: 'Making space for other tasks',
-    route: 'subsciption-management',
+    route: basicBuildingBlockRoot + '/subscription-management',
   },
   {
     name: 'Progress bar',
     image: 'https://source.unsplash.com/random/?progress',
     description: 'Progress bar',
-    route: 'progress-bar',
+    route: basicBuildingBlockRoot + '/progress-bar',
   },
   // observable behaviors
   {
     name: 'Hot & Cold',
     image: 'https://source.unsplash.com/random/?hot,cold',
     description: 'Think of "active or lazy"',
-    route: 'hot-and-cold',
+    route: basicBuildingBlockRoot + '/hot-and-cold',
   },
 ]
 

@@ -26,13 +26,6 @@ export const numberObservable$ = new Observable(subscriber => {
 
 
 
-
-
-
-
-
-
-
 // interval observables
 export const numberIntervalObservable$ = new Observable<number>(subscriber => {
   let counter = 0;
