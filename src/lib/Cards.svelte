@@ -1,23 +1,16 @@
 <script lang="ts">
     import Card, { Content, Actions } from "@smui/card";
     import Button, { Label } from "@smui/button";
-    import { push, pop, location } from "svelte-spa-router";
+    import { push, pop, location, replace } from "svelte-spa-router";
+    import Navigation from "./Navigation.svelte";
     export let title: string;
     export let items: any[];
-
-    const goBack = () => {
-        pop();
-    };
 </script>
 
 <main class="m-20 flex justify-center flex-col">
-    {#if $location !== "/"}
-        <button class="flex self-baseline" on:click={goBack}>Go Back</button>
-    {/if}
-
     <h1 class="text-5xl font-bold">{title}</h1>
 
-    <section class="flex my-4 w-full flex-wrap">
+    <section class="flex my-4 w-full flex-wrap justify-center">
         {#each items as item}
             <Card
                 class="bg-slate-200 rounded-md p-2 m-4 flex flex-basis flex-col justify-between w-56 h-64"
