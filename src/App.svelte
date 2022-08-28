@@ -5,12 +5,8 @@
   import Observer from "./routes/0-fundamentals/observer-pattern.svelte";
   import Router from "svelte-spa-router";
   import FundamentalsIndex from "./routes/0-fundamentals/fundamentals-index.svelte";
-  import BuildingBlocksIndex from "./routes/1-building-blocks/building-blocks-index.svelte";
-  import Basics from "./routes/1-building-blocks/basics.svelte";
-  import ObserverNotifications from "./routes/1-building-blocks/observer-notifications.svelte";
-  import ProgressBar from "./routes/1-building-blocks/progress-bar.svelte";
-  import SubscriptionManagement from "./routes/1-building-blocks/subscription-management.svelte";
-  import HotAndCold from "./routes/1-building-blocks/hot-and-cold.svelte";
+  import Navigation from "./lib/Navigation.svelte";
+  import { location } from "svelte-spa-router";
 
   let routes = {
     // root
@@ -21,23 +17,18 @@
     "/0-fundamentals/iterator": Iterator,
     "/0-fundamentals/observer": Observer,
 
-    // basic building blocks
-    "/1-building-blocks/": BuildingBlocksIndex,
-    "/1-building-blocks/basics": Basics,
-    "/1-building-blocks/observer-notifications": ObserverNotifications,
-    "/1-building-blocks/subscription-management": SubscriptionManagement,
-    "/1-building-blocks/progress-bar": ProgressBar,
-    "/1-building-blocks/hot-and-cold": HotAndCold,
-
-    // operators
-    "/2-operators/": FundamentalsIndex,
-
     // not found
     "*": NotFound,
   };
 </script>
 
-<main>
+<main class="flex justify-center items-center w-full">
+  {#if $location !== "/"}
+    <div class="absolute left-4 top-4">
+      <Navigation />
+    </div>
+  {/if}
+
   <Router {routes} />
 </main>
 
