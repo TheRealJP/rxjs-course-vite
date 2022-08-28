@@ -18,4 +18,3 @@
   <div>Iterator pattern</div>
   <div class="text-slate-400 text-sm">(Open devtools)</div>
 </main>
-  
