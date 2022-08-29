@@ -1,4 +1,15 @@
 /** Observer pattern */
+export class Observer {
+  notify(index, notification) {
+    console.log(
+      'Observer ' +
+      index +
+      ': The subject i am subscribed to has emitted a notification -> ',
+      notification
+    )
+  }
+}
+
 export class Subject {
   observers = []
 
@@ -22,17 +33,6 @@ export class Subject {
     this.observers.forEach((observer, index) => {
       observer.notify(index + 1, 'shared message')
     })
-  }
-}
-
-export class Observer {
-  notify(index, notification) {
-    console.log(
-      'Observer ' +
-      index +
-      ': The subject i am subscribed to has emitted a notification: ',
-      notification
-    )
   }
 }
 

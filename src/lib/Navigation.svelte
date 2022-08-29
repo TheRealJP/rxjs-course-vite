@@ -1,5 +1,5 @@
 <script>
-    import { push, pop, location, replace } from "svelte-spa-router";
+    import { pop, replace } from "svelte-spa-router";
     const goBack = () => pop();
     const goHome = () => replace("/");
 </script>
@@ -11,10 +11,8 @@
             src="../../src/assets/arrow-left.svg"
             alt="left-arrow"
         />
-        <!-- <p>Go Back</p> -->
     </button>
     <button class="flex items-center mb-2" on:click={goHome}>
         <img class="mr-2" src="../../src/assets/home.svg" alt="left-arrow" />
-        <!-- <p>Go Back</p> -->
     </button>
 </nav>

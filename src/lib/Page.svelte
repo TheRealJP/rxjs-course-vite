@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Navigation from "./Navigation.svelte";
     export let title: string;
     export let subTitle = "";
     export let content = null
