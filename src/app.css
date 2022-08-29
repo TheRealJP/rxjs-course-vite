@@ -12,5 +12,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   justify-content: center;
-  /* align-content: center; */
+  background-color: white
+  /* background-color: rgba(255, 255, 255, 0.932); */
 }

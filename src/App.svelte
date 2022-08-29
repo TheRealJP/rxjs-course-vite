@@ -7,6 +7,7 @@
   import FundamentalsIndex from "./routes/0-fundamentals/fundamentals-index.svelte";
   import Navigation from "./lib/Navigation.svelte";
   import { location } from "svelte-spa-router";
+  import 'tw-elements';
 
   let routes = {
     // root

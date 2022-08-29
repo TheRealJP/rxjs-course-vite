@@ -1,1 +1,1 @@
-<main class="red">Page not found</main>
+<main>Page not found</main>
