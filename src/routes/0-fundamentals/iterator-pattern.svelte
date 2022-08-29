@@ -14,7 +14,7 @@
   console.log("value3: ", value3); // => { nextValue: 30, isDone: true }
 
   const value4 = iterator.next() // value4 returns same value as value3
-    console.log('value4: ', value4) // => { nextValue: 30, isDone: true }
+  console.log('value4: ', value4) // => { nextValue: 30, isDone: true }
 </script>
 
 <section>
