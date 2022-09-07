@@ -2,10 +2,10 @@
     import Cards from "$lib/Cards.svelte";
     import { itemCollections } from "$utils/constants";
 
-    const lessons = itemCollections.FUNDAMENTAL_CONCEPTS;
-    const title = "RxJS fundamental concepts";
+    const lessons = itemCollections.BASIC_BUILDING_BLOCKS;
+    const title = "Basic building blocks";
 </script>
 
-<main>
+<section>
     <Cards {title} items={lessons} />
-</main>
+</section>
