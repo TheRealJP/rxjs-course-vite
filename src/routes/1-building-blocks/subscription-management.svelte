@@ -1,6 +1,8 @@
 <script lang="ts">
+    import Page from "$lib/Page.svelte";
+
 </script>
 
 <section>
-    Subscription management works
+    <Page title="Subscription management works" subTitle="(Open devtools)" />
 </section>
