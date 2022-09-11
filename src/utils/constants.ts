@@ -40,12 +40,12 @@ export const fundamentalConceptsLessons: Item[] = [
 export const basicBuildingBlocksLessons: Item[] = [
   {
     name: 'Basic building blocks',
-    description: 'Observable, observer, subscription, subscriber',
+    description: 'Observable, producer, observer, subscription, unsubscribe',
     route: basicBuildingBlockRoot + '/basics',
   },
   {
     name: 'Observer notifications',
-    description: 'Observer notifications',
+    description: 'Next, error, complete',
     route: basicBuildingBlockRoot + '/observer-notifications',
   },
   {
@@ -55,12 +55,12 @@ export const basicBuildingBlocksLessons: Item[] = [
   },
   {
     name: 'Progress bar',
-    description: 'Progress bar',
+    description: 'Training the basics',
     route: basicBuildingBlockRoot + '/progress-bar',
   },
   {
     name: 'Hot & Cold',
-    description: 'Think of "active or lazy"',
+    description: 'Observable behaviors',
     route: basicBuildingBlockRoot + '/hot-and-cold',
   },
 ]

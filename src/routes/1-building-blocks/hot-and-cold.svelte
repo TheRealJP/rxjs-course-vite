@@ -1,4 +1,8 @@
 <script lang="ts">
+    import Page from "$lib/Page.svelte";
+    
 </script>
 
-<section>Hot and cold works</section>
+<section>
+    <Page title="Hot & cold works" subTitle="(Open devtools)" />
+</section>
