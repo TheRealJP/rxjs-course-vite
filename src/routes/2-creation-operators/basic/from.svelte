@@ -1,33 +1,38 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
-    import { from, Observable, of } from "rxjs";
+    import { from, of, throwError } from "rxjs";
 
-    // of example
-    const from$ = from("Stone"); // string
-    const from1$ = from([1, 2, 3]); // iterable/collection
+    // main difference between of & from
+    // of([1, 2, 3], [3, 2, 1]).subscribe((v) => console.log(v));
+    // from([1, 2, 3]).subscribe((v) => console.log(v));
+    
+    // string or other iterable types
+    from("God").subscribe((v) => console.log(v));
+    
+    // not possible to pass primitives like number or boolean
+    // from(3).subscribe((v) => console.log(v));
+    // from(true).subscribe((v) => console.log(v));
+
+    // array or other collection data structure
+    const map = new Map();
+    map.set(1, 'Hello');
+    map.set(2, 'World');
+    from(map).subscribe((v) => console.log(v));
+    
     // promise
-    const from2$ = from(new Promise((resolve, reject) => {
-        resolve('resolved')
-    }));  
-    const from3$ = from(of('of inside from')); // observable inside from
-
-    from$.subscribe({
-        next: (value) => console.log(value),
-        complete: () => console.log("customOf subscription completed"),
+    from(Promise.reject("promise value")).subscribe({
+        next: (v) => console.log(v),
+        error: (err) => console.error("promise returned error: ", err),
     });
-
-    // how the of operator works
-    // function customFrom<T>(array: T[]): Observable<T> {
-    //     return new Observable<T>((subscriber) => {
-    //         array.forEach((arg) => subscriber.next(arg));
-    //         subscriber.complete();
-    //     });
-    // }
-
-    // customFrom([1, 2, 3]).subscribe({
-    //     next: (value) => console.log(value),
-    //     complete: () => console.log("customOf subscription completed"),
-    // });
+    
+    // another observable
+    // of("observable inside from")
+    // throwError(() => 'error')
+    from(throwError(() => "error")).subscribe({
+        next: (v) => console.log(v),
+        error: (err) =>
+            console.error("observable inside from returned error: ", err),
+    });
 </script>
 
 <section>

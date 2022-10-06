@@ -5,9 +5,10 @@
 
     // http call example
     const call1$ = ajax('facebook.com')
+    const call2$ = ajax('facebook.com')
     
-    const range$ = forkJoin([]);
-    range$.subscribe((x) => console.log(x));
+    const forkJoin$ = forkJoin([call1$, call2$]);
+    forkJoin$.subscribe((x) => console.log(x));
 </script>
 
 <section>
