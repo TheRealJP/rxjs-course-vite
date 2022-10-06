@@ -1,35 +1,37 @@
 <script lang="ts">
-    import Page from "$lib/Page.svelte";
-    import { fromEvent, Observable, Subscription } from "rxjs";
+    import { fromEvent, Observable } from "rxjs";
     import { onMount } from "svelte";
 
     onMount(() => {
-        const square = document.getElementById("square");
-        const clickEvent$ = fromEvent<MouseEvent>(square, "click");
-        const clickEventSubscription = clickEvent$.subscribe((event) =>
-            console.log("fromEvent: ", {
-                eventType: event.type,
-                x: event.clientX,
-                y: event.clientX,
-            })
-        );
+        // const square = document.getElementById("square");
 
-        const customClickEvent$ = customFromEvent<MouseEvent>(square, "click");
-        const customClickEventSubscription = customClickEvent$.subscribe(
-            (event) =>
-                console.log("customFromEvent: ", {
-                    eventType: event.type,
-                    x: event.clientX,
-                    y: event.clientX,
-                })
-        );
+        // const clickEvent$ = fromEvent<MouseEvent>(square, "click");
+        // const clickEventSubscription = clickEvent$.subscribe((event) =>
+        //     console.log("fromEvent: ", {
+        //         eventType: event.type,
+        //         x: event.clientX,
+        //         y: event.clientX,
+        //     })
+        // );
 
-        setTimeout(() => {
-            clickEventSubscription.unsubscribe();
-            customClickEventSubscription.unsubscribe();
-        }, 3000);
+        // const customClickEvent$ = customFromEvent<MouseEvent>(square, "click");
+        // const customClickEventSubscription = customClickEvent$.subscribe(
+        //     (event) => {
+        //         console.log("customFromEvent: ", {
+        //             eventType: event.type,
+        //             x: event.clientX,
+        //             y: event.clientX,
+        //         });
+        //     }
+        // );
 
-        // other event example
+        // setTimeout(() => {
+        //     clickEventSubscription.unsubscribe();
+        //     customClickEventSubscription.unsubscribe();
+        //     console.log("Unsubscribed");
+        // }, 3000);
+
+        // -------- other event example, works the same way
         const input = document.getElementById("input");
         const keyDownEvent$ = fromEvent<KeyboardEvent>(input, "keydown");
         keyDownEvent$.subscribe((event) => {
@@ -47,31 +49,28 @@
         );
     });
 
-    // how the fromEvent creation operator works 
     function customFromEvent<T extends Event>(
         target: HTMLElement | Document,
         eventName: string
     ) {
         return new Observable<T>((subscriber) => {
-            // emit event data to subscriber
             const eventHandler = (event: T) => {
-                console.log("customFromEvent producer: ", event.type);
+                // console.log("customFromEvent producer: ", event.type); // eventHandler
                 subscriber.next(event);
             };
 
-            // producer starts listening & generating event data
             target.addEventListener(eventName, eventHandler);
 
-            // teardown the producer eventlistener
-            // return () => {
-            //     target.removeEventListener(eventName, eventHandler);
-            // };
+            return () => {
+                target.removeEventListener(eventName, eventHandler);
+            };
         });
     }
 </script>
 
 <section class="flex flex-col h-60 justify-center items-center">
-    <div id="square" class="w-16 h-16 bg-blue-600 m-6" />
+    <div id="square" class="w-36 h-36 bg-blue-600 m-6" />
+
     <input
         id="input"
         type="text"
