@@ -28,11 +28,9 @@
   import FromEvent from "$routes/2-creation-operators/basic/fromEvent.svelte";
   import Range from "$routes/2-creation-operators/basic/range.svelte";
 
-  import Timer from "$routes/2-creation-operators/time/timer.svelte";
-  import Interval from "$routes/2-creation-operators/time/interval.svelte";
+  import TimerAndInterval from "$routes/2-creation-operators/time/timer-and-interval.svelte";
   
-  import Ajax from "$routes/2-creation-operators/http/ajax.svelte";
-  import FromFetch from "$routes/2-creation-operators/http/fromFetch.svelte";
+  import AjaxAndFromFetch from "$routes/2-creation-operators/http/ajax-and-fromFetch.svelte";
   
   import Concat from "$routes/2-creation-operators/combination/concat.svelte";
   import Merge from "$routes/2-creation-operators/combination/merge.svelte";
@@ -68,11 +66,9 @@
     "/2-creation-operators/basic/range": Range,
     "/2-creation-operators/basic/fromEvent": FromEvent,
     // time
-    "/2-creation-operators/time/timer": Timer,
-    "/2-creation-operators/time/interval": Interval,
+    "/2-creation-operators/time/timer-and-interval": TimerAndInterval,
     // http
-    "/2-creation-operators/http/ajax": Ajax,
-    "/2-creation-operators/http/fromFetch": FromFetch,
+    "/2-creation-operators/http/ajax-and-fromFetch": AjaxAndFromFetch,
     // combination
     "/2-creation-operators/combination/concat": Concat,
     "/2-creation-operators/combination/merge": Merge,

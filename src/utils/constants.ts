@@ -120,27 +120,17 @@ export const basicCreationOperatorsLessons: Item[] = [
 
 export const timeCreationOperatorsLessons: Item[] = [
   {
-    name: 'Timer',
+    name: 'Timer and interval',
     description: '',
-    route: creationOperatorsRoot + '/time/timer',
-  },
-  {
-    name: 'Interval',
-    description: '',
-    route: creationOperatorsRoot + '/time/interval',
+    route: creationOperatorsRoot + '/time/timer-and-interval',
   },
 ]
 
 export const httpCreationOperatorsLessons: Item[] = [
   {
-    name: 'Ajax',
+    name: 'Ajax and fromFetch',
     description: '',
-    route: creationOperatorsRoot + '/http/ajax',
-  },
-  {
-    name: 'FromFetch',
-    description: '',
-    route: creationOperatorsRoot + '/http/fromFetch',
+    route: creationOperatorsRoot + '/http/ajax-and-fromFetch',
   },
 ]
 
