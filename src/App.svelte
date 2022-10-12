@@ -29,12 +29,11 @@
   import Range from "$routes/2-creation-operators/basic/range.svelte";
 
   import TimerAndInterval from "$routes/2-creation-operators/time/timer-and-interval.svelte";
-  
+
   import AjaxAndFromFetch from "$routes/2-creation-operators/http/ajax-and-fromFetch.svelte";
-  
-  import Concat from "$routes/2-creation-operators/combination/concat.svelte";
-  import Merge from "$routes/2-creation-operators/combination/merge.svelte";
+
   import CombineLatest from "$routes/2-creation-operators/combination/combineLatest.svelte";
+  import ForkJoin from "$routes/2-creation-operators/combination/forkJoin.svelte";
   // ----------------------------
 
   let routes = {
@@ -70,8 +69,8 @@
     // http
     "/2-creation-operators/http/ajax-and-fromFetch": AjaxAndFromFetch,
     // combination
-    "/2-creation-operators/combination/concat": Concat,
-    "/2-creation-operators/combination/merge": Merge,
+    // "/2-creation-operators/combination/concat": Concat,
+    "/2-creation-operators/combination/forkJoin": ForkJoin,
     "/2-creation-operators/combination/combineLatest": CombineLatest,
 
     // not found

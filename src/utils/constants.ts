@@ -136,14 +136,9 @@ export const httpCreationOperatorsLessons: Item[] = [
 
 export const combinationCreationOperatorsLessons: Item[] = [
   {
-    name: 'Concat',
+    name: 'ForkJoin',
     description: '',
-    route: creationOperatorsRoot + '/combination/concat',
-  },
-  {
-    name: 'Merge',
-    description: '',
-    route: creationOperatorsRoot + '/combination/merge',
+    route: creationOperatorsRoot + '/combination/forkJoin',
   },
   {
     name: 'CombineLatest',

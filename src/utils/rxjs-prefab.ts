@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable, type Observer } from "rxjs";
 
 export const stringObservable$ = new Observable(subscriber => {
   setTimeout(() => {
@@ -10,7 +10,6 @@ export const stringObservable$ = new Observable(subscriber => {
     console.log('Teardown stringObservable');
   }
 });
-
 export const numberObservable$ = new Observable(subscriber => {
   [1, 2, 3].forEach(val => subscriber.next(val))
   subscriber.complete()
@@ -19,23 +18,6 @@ export const numberObservable$ = new Observable(subscriber => {
     console.log('Teardown numberObservable');
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // interval observables
@@ -52,7 +34,6 @@ export const numberIntervalObservable$ = new Observable<number>(subscriber => {
     clearInterval(intervalId)
   };
 });
-
 export const stringIntervalObservable$ = new Observable<string>(subscriber => {
   let counter = 0;
 
@@ -64,18 +45,6 @@ export const stringIntervalObservable$ = new Observable<string>(subscriber => {
     console.log('stringIntervalObservable$ teardown function activated');
   };
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Http observables
@@ -90,3 +59,13 @@ export const fakeServerRequestErrorObservable$ = new Observable(observer => {
     observer.error('Something went wrong during server request')
   }, 2000)
 });
+
+
+// observers
+export function getFullObserver(operator: string): Observer<any> {
+  return {
+    next: (value) => console.log(`${operator}: ${value}`),
+    complete: () => console.log(`${operator} completed!`),
+    error: (x) => console.error(`Error in ${operator}: ${x}`),
+  }
+}
