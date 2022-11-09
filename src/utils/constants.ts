@@ -1,14 +1,28 @@
-// interfaces -------------------------------------------
-export interface Item {
-  name: string,
-  description: string,
-  route: string,
-}
+import type { IPerson, Item } from "./interfaces"
 
+/** lessons */
+export const peopleMap: { [person: string]: IPerson } = {
+  spy: { age: 20, name: "James", profession: "spy" },
+  singer: { age: 31, name: "Cassandra", profession: "singer" },
+  ninja: { age: 28, name: "Hanzo", profession: "ninja" },
+  farmer: { age: 48, name: "Thomas", profession: "farmer" },
+  doctor: { age: 38, name: "Hippocrates", profession: "doctor" },
+  princess: { age: 17, name: "Anna", profession: "princess" },
+  wizard: { age: 999, name: "Odin", profession: "wizard" },
+  baby: { age: 1, name: "Benjamin", profession: "baby" },
+  dad: { age: 33, name: "John", profession: "dad" },
+  mom: { age: 27, name: "Olivia", profession: "mom" }
+}
+export const people: IPerson[] = [...Object.values(peopleMap)]
+
+
+/** meta */
 // root paths -------------------------------------------
 const fundamentalRoot = '/0-fundamentals'
 const basicBuildingBlockRoot = '/1-building-blocks'
 const creationOperatorsRoot = '/2-creation-operators'
+const pipeOperatorsRoot = '/3-pipe-operators'
+const subjectsRoot = '/4-subjects'
 
 // sections -------------------------------------------
 export const sections: Item[] = [
@@ -21,11 +35,21 @@ export const sections: Item[] = [
     name: 'RxJS building blocks',
     description: 'Playing around with the basics',
     route: basicBuildingBlockRoot,
-  },  
+  },
   {
     name: 'Creation operators',
-    description: 'Premade observable functions',
+    description: 'Creating new observables with premade functions',
     route: creationOperatorsRoot,
+  },
+  {
+    name: 'Pipe operators',
+    description: 'Transforming observables with premade functions',
+    route: pipeOperatorsRoot,
+  },
+  {
+    name: 'Subjects',
+    description: 'Broadcasting data with "observable + observer" hybrids',
+    route: subjectsRoot,
   },
 ]
 
@@ -71,25 +95,22 @@ export const basicBuildingBlocksLessons: Item[] = [
   },
 ]
 
+/** creation operators */
 export const creationOperatorsLessons: Item[] = [
   {
     name: 'Basic',
-    description: '',
     route: creationOperatorsRoot + '/basic',
   },
   {
     name: 'Time',
-    description: '',
     route: creationOperatorsRoot + '/time',
   },
   {
     name: 'Http',
-    description: '',
     route: creationOperatorsRoot + '/http',
   },
   {
     name: 'Combination',
-    description: '',
     route: creationOperatorsRoot + '/combination',
   },
 ]
@@ -98,22 +119,18 @@ export const basicCreationOperatorsLessons: Item[] = [
 
   {
     name: 'Of',
-    description: '',
     route: creationOperatorsRoot + '/basic/of',
   },
   {
     name: 'From',
-    description: '',
     route: creationOperatorsRoot + '/basic/from',
   },
   {
     name: 'Range',
-    description: '',
     route: creationOperatorsRoot + '/basic/range',
   },
   {
     name: 'FromEvent',
-    description: '',
     route: creationOperatorsRoot + '/basic/fromEvent',
   },
 ]
@@ -121,7 +138,6 @@ export const basicCreationOperatorsLessons: Item[] = [
 export const timeCreationOperatorsLessons: Item[] = [
   {
     name: 'Timer and interval',
-    description: '',
     route: creationOperatorsRoot + '/time/timer-and-interval',
   },
 ]
@@ -129,7 +145,6 @@ export const timeCreationOperatorsLessons: Item[] = [
 export const httpCreationOperatorsLessons: Item[] = [
   {
     name: 'Ajax and fromFetch',
-    description: '',
     route: creationOperatorsRoot + '/http/ajax-and-fromFetch',
   },
 ]
@@ -137,20 +152,105 @@ export const httpCreationOperatorsLessons: Item[] = [
 export const combinationCreationOperatorsLessons: Item[] = [
   {
     name: 'ForkJoin',
-    description: '',
     route: creationOperatorsRoot + '/combination/forkJoin',
   },
   {
     name: 'CombineLatest',
-    description: '',
     route: creationOperatorsRoot + '/combination/combineLatest',
+  },
+]
+
+/** pipe operators */
+export const pipeOperatorsLessons: Item[] = [
+  {
+    name: 'Filtering',
+    route: pipeOperatorsRoot + '/filtering',
+  },
+  {
+    name: 'Utility',
+    route: pipeOperatorsRoot + '/utility',
+  },
+  {
+    name: 'Combination',
+    route: pipeOperatorsRoot + '/combination',
+  },
+  {
+    name: 'Error handling',
+    route: pipeOperatorsRoot + '/error-handling',
+  },
+  {
+    name: 'Subscription handling',
+    route: pipeOperatorsRoot + '/subscription-handling',
+  },
+  {
+    name: 'Transformation',
+    route: pipeOperatorsRoot + '/transformation',
+  },
+]
+
+export const filteringPipeOperatorsLessons: Item[] = [
+  {
+    name: 'Filter',
+    route: pipeOperatorsRoot + '/filtering/filter',
+  },
+  {
+    name: 'DistinctUntilChanged',
+    route: pipeOperatorsRoot + '/filtering/distinctUntilChanged',
+  },
+]
+export const utilityPipeOperatorsLessons: Item[] = [
+  {
+    name: 'Tap',
+    route: pipeOperatorsRoot + '/utility/tap',
+  },
+]
+export const combinationPipeOperatorsLessons: Item[] = [
+  {
+    name: 'WithLatestFrom',
+    route: pipeOperatorsRoot + '/combination/withLatestFrom',
+  },
+]
+export const errorHandlingPipeOperatorsLessons: Item[] = [
+  {
+    name: 'CatchError',
+    route: pipeOperatorsRoot + '/error-handling/catchError',
+  },
+]
+export const subscriptionHandlingPipeOperatorsLessons: Item[] = [
+  {
+    name: 'TakeUntil',
+    route: pipeOperatorsRoot + '/subscription-handling/takeUntil',
+  },
+]
+export const transformationPipeOperatorsLessons: Item[] = [
+  {
+    name: 'Map',
+    route: pipeOperatorsRoot + '/transformation/map',
+  },
+  {
+    name: 'Flattening',
+    route: pipeOperatorsRoot + '/transformation/flattening',
+  },
+]
+
+/** subjects */
+export const subjectsLessons: Item[] = [
+  {
+    name: 'Subject',
+    route: subjectsRoot + '/subject',
+  },
+  {
+    name: 'BehaviorSubject',
+    route: subjectsRoot + '/behaviorSubject',
   },
 ]
 
 
 export const itemCollections = {
   SECTIONS: sections,
+
   FUNDAMENTAL_CONCEPTS: fundamentalConceptsLessons,
+
   BASIC_BUILDING_BLOCKS: basicBuildingBlocksLessons,
 
   CREATION_OPERATORS: creationOperatorsLessons,
@@ -158,6 +258,16 @@ export const itemCollections = {
   TIME_CREATION_OPERATORS: timeCreationOperatorsLessons,
   HTTP_CREATION_OPERATORS: httpCreationOperatorsLessons,
   COMBINATION_CREATION_OPERATORS: combinationCreationOperatorsLessons,
+
+  PIPE_OPERATORS: pipeOperatorsLessons,
+  FILTERING_PIPE_OPERATORS: filteringPipeOperatorsLessons,
+  UTILITY_PIPE_OPERATORS: utilityPipeOperatorsLessons,
+  COMBINATION_PIPE_OPERATORS: combinationPipeOperatorsLessons,
+  ERROR_HANDLING_PIPE_OPERATORS: errorHandlingPipeOperatorsLessons,
+  SUBSCRIPTION_HANDLING_PIPE_OPERATORS: subscriptionHandlingPipeOperatorsLessons,
+  TRANSFORMATION_PIPE_OPERATORS: transformationPipeOperatorsLessons,
+
+  SUBJECTS: subjectsLessons,
 }
 
 

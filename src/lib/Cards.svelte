@@ -15,7 +15,7 @@
             >
                 <div class="mb-12">
                     <h2 class="text-2xl font-bold mb-1">{item.name}</h2>
-                    <h3 class="text-gray-400 text-">{item.description}</h3>
+                    <h3 class="text-gray-400 text-">{item.description ?? ""}</h3>
                 </div>
 
                 <button

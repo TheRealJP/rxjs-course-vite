@@ -1,4 +1,6 @@
-import { Observable, type Observer } from "rxjs";
+import { delay, Observable, throwError, type Observer } from "rxjs";
+import { fromFetch } from "rxjs/fetch";
+import type { TapObserver } from "rxjs/internal/operators/tap";
 
 export const stringObservable$ = new Observable(subscriber => {
   setTimeout(() => {
@@ -61,11 +63,50 @@ export const fakeServerRequestErrorObservable$ = new Observable(observer => {
 });
 
 
-// observers
-export function getFullObserver(operator: string): Observer<any> {
+/**
+ * simple function that returns a complete Observer object
+ * @param label: tells us what situation the observer is observing
+ * @returns {@type Observer}
+ */
+export function getFullObserver(label: string): Observer<any> {
   return {
-    next: (value) => console.log(`${operator}: ${value}`),
-    complete: () => console.log(`${operator} completed!`),
-    error: (x) => console.error(`Error in ${operator}: ${x}`),
+    next: (value) => console.log(`${label}:`, value),
+    error: (err) => console.error(`Error in ${label}: `, err),
+    complete: () => console.log(`${label} completed!`),
   }
+}
+
+/**
+ * simple function that returns a complete TapObserver object
+ * @param label: tells us what situation the observer is observing
+ * @returns {@type TapObserver}
+ */
+export function getFullTapObserver(label: string): TapObserver<any> {
+  return {
+    ...getFullObserver(label),
+    subscribe: () => console.log(`The '${label}' subscription started!`),
+    unsubscribe: () => console.log(`'${label}' unsubscribed manually!`),
+    finalize: () => console.log(`The '${label}' subscription was destroyed!`),
+  }
+}
+
+/**
+ * @abstract fetches random user from the open source randomuser api
+ * {@param specificProperty} if empty returns whole user object
+ * object property keys we can pass as string arguments: https://randomuser.me/documentation#incexc   
+ * {@param countryCode} only these country codes are allowed: https://randomuser.me/documentation#nationalities 
+ */
+export function fetchRandomUser(countryCode?: string, specificProperty?: string): Observable<any> {
+  if (!countryCode) return throwError(() => "No country code provided")
+
+  const url = "https://randomuser.me/api/"
+  return fromFetch(`${url}${countryCode ? `?nat=${countryCode}` : ""}`, {
+    selector: async (response) => {
+      const result = (await response.json()).results[0];
+      return result[specificProperty] ?? result;
+    },
+  }).pipe(
+    // delay is a bit like the timer operator, they both use the setTimeOut function
+    delay(Math.random() * 1500)
+  );
 }

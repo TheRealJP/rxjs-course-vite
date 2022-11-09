@@ -1,44 +1,45 @@
 <script lang="ts">
+    import type { ISchoolClass } from "$utils/interfaces";
     import { getFullObserver } from "$utils/rxjs-prefab";
     import { combineLatest, fromEvent, of, throwError, timer } from "rxjs";
     import { ajax } from "rxjs/ajax";
+    import { fromFetch } from "rxjs/fetch";
     import { onMount } from "svelte";
     const fullObserver = getFullObserver("combineLatest");
 
+    /** --- basic behaviors --- */
     // --- observables to combine in the combineLatest operator ---
-    const httpCall$ = ajax<any>("https://www.boredapi.com/api/activity");
+    const httpCall$ = fromFetch("https://www.boredapi.com/api/activity?key=5881028", {
+        selector: (response) => response.json(),
+    });
     const mouseClick$ = fromEvent<MouseEvent>(document, "click");
     const keyInput$ = fromEvent<KeyboardEvent>(document, "keydown");
     const error$ = throwError(() => "Something went wrong");
 
-    /** --- basic behaviors --- */
-    // --- more common: using infinite observables (sometimes mixed with finite observables) --- 
+    // --- more common: using infinite observables (sometimes mixed with finite observables) ---
     const combineLatest$ = combineLatest([httpCall$, mouseClick$, keyInput$]);
+
     // combineLatest$.subscribe(([httpResponse, mouseClickData, keyInputData]) => {
     //     console.log({
-    //         httpResponse: httpResponse.response.activity,
+    //         httpResponse: httpResponse.activity,
     //         mousePosition: `${mouseClickData.clientX}/${mouseClickData.clientY}`,
     //         keyboardKey: keyInputData.key,
     //     });
     // });
 
-    // --- less common: using finite observables --- 
+    // --- less common: using finite observables ---
     const of1$ = of(3);
     const of2$ = of("C");
     // combineLatest([of1$, of2$]).subscribe(fullObserver);
 
     // --- combineLatest error ---
-    // combineLatest([mouseClick$, error$]).subscribe(fullObserver);
+    // combineLatest([mouseClick$, keyInput$, error$]).subscribe(fullObserver);
 
     // --- combineLatest empty array ---
     // combineLatest([]).subscribe(fullObserver);
 
     /** --- classic combineLatest use case: applying filter criteria --- */
-    interface SchoolClass {
-        title: string;
-        category: string;
-    }
-    const schoolClasses: SchoolClass[] = [
+    const schoolClasses: ISchoolClass[] = [
         {
             title: "biology",
             category: "science",
@@ -56,12 +57,14 @@
             category: "art",
         },
     ];
-    let filteredClasses: SchoolClass[] = schoolClasses;
+    let filteredClasses: ISchoolClass[] = schoolClasses;
 
     onMount(() => {
-        const dropdown = document.getElementById("dropdown");
-        const titleSearch = document.getElementById("search");
-        const dropdownEvent$ = fromEvent<Event>(dropdown, "change");
+        const categoryDropdown = document.getElementById("category-dropdown");
+        const titleSearch = document.getElementById("title-search");
+
+        // --- we'll also do this part together ---
+        const dropdownEvent$ = fromEvent<Event>(categoryDropdown, "change");
         const searchEvent$ = fromEvent<InputEvent>(titleSearch, "input");
 
         const subscription = combineLatest([dropdownEvent$, searchEvent$]).subscribe(
@@ -83,7 +86,7 @@
         // fromEvent is an infinite observable, so normally we need to unsubscribe the combineLatest subscription
         // for this use case we dont unsubscribe because we want to keep filtering
         // this unsubscribe is just for demo purposes
-        timer(10000).subscribe(() => {
+        timer(7000).subscribe(() => {
             subscription.unsubscribe();
             console.log("combineLatest unsubscribed!");
         });
@@ -93,13 +96,13 @@
 <main>
     <!-- filters -->
     <section id="filter-container" class="flex justify-center">
-        <select id="dropdown" class="border-slate-200 border-solid  rounded-md border-2">
-            <option value="default" selected>Category</option>
+        <select id="category-dropdown" class="border-slate-200 border-solid rounded-md border-2">
+            <option value="default" selected>--- Category ---</option>
             <option value="science">Science</option>
             <option value="art">Art</option>
         </select>
         <input
-            id="search"
+            id="title-search"
             type="text"
             class="ml-4 border-slate-200 rounded-md border-solid border-2"
         />
