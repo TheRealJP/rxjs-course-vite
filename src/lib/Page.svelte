@@ -1,7 +1,7 @@
 <script lang="ts">
     export let title: string;
     export let subTitle = "";
-    export let content = null
+    export let content = null;
 </script>
 
 <section>

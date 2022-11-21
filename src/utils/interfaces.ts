@@ -9,7 +9,7 @@ export interface ISchoolClass {
     category: string;
 }
 
-export interface IPerson {
+export interface IUser {
     age: number;
     name: string;
     profession: string;

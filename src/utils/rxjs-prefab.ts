@@ -2,6 +2,12 @@ import { delay, Observable, throwError, type Observer } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import type { TapObserver } from "rxjs/internal/operators/tap";
 
+/**
+ * --------------------------------------------------------------
+ * This file contains premade custom rxjs observables & functions
+ * --------------------------------------------------------------
+ */
+
 export const stringObservable$ = new Observable(subscriber => {
   setTimeout(() => {
     ['Charlie', 'Alice', 'Bob'].forEach(val => subscriber.next(val))
@@ -49,7 +55,7 @@ export const stringIntervalObservable$ = new Observable<string>(subscriber => {
 });
 
 
-// Http observables
+// "Http" observables
 export const fakeServerRequestObservable$ = new Observable(observer => {
   setTimeout(() => {
     observer.next({ data: 'Some data returned from server' })
@@ -84,9 +90,9 @@ export function getFullObserver(label: string): Observer<any> {
 export function getFullTapObserver(label: string): TapObserver<any> {
   return {
     ...getFullObserver(label),
-    subscribe: () => console.log(`The '${label}' subscription started!`),
-    unsubscribe: () => console.log(`'${label}' unsubscribed manually!`),
-    finalize: () => console.log(`The '${label}' subscription was destroyed!`),
+    subscribe: () => console.log(`${label} subscription started!`),
+    unsubscribe: () => console.log(`${label} unsubscribed manually!`),
+    finalize: () => console.log(`${label} subscription was destroyed!`),
   }
 }
 

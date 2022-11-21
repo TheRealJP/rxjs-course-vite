@@ -1,7 +1,7 @@
-import type { IPerson, Item } from "./interfaces"
+import type { IUser, Item } from "./interfaces"
 
 /** lessons */
-export const peopleMap: { [person: string]: IPerson } = {
+export const userMap: { [user: string]: IUser } = {
   spy: { age: 20, name: "James", profession: "spy" },
   singer: { age: 31, name: "Cassandra", profession: "singer" },
   ninja: { age: 28, name: "Hanzo", profession: "ninja" },
@@ -13,7 +13,7 @@ export const peopleMap: { [person: string]: IPerson } = {
   dad: { age: 33, name: "John", profession: "dad" },
   mom: { age: 27, name: "Olivia", profession: "mom" }
 }
-export const people: IPerson[] = [...Object.values(peopleMap)]
+export const users: IUser[] = [...Object.values(userMap)]
 
 
 /** meta */

@@ -4,7 +4,6 @@
     import { forkJoin, throwError, timer } from "rxjs";
     import { fromFetch } from "rxjs/fetch";
 
-    const fullObserver = getFullObserver("forkJoin");
     // --- observables to combine in the forkJoin operator ---
     // finite
     const activity1$ = fromFetch("https://www.boredapi.com/api/activity?key=5881028", {
@@ -34,19 +33,19 @@
 
     // --- forkJoin with infinite observables ---
     const forkJoinInfinite$ = forkJoin([timerInterval1$, timerInterval2$]);
-    // forkJoinInfinite$.subscribe(fullObserver);
+    // forkJoinInfinite$.subscribe(getFullObserver("infinite"));
 
     // --- forkJoin with finite and infinite observables ---
     const forkJoinMixed$ = forkJoin([activity1$, timerInterval1$]);
-    // forkJoinMixed$.subscribe(fullObserver);
+    // forkJoinMixed$.subscribe(getFullObserver("finite and infinite"));
 
     // --- forkJoin with finite and error observables ---
     const forkJoinError$ = forkJoin([activity1$, error$]);
-    forkJoinError$.subscribe(fullObserver);
+    forkJoinError$.subscribe(getFullObserver("finite & error"));
 
     // --- forkJoin empty array ---
     const forkJoinEmpty$ = forkJoin([]);
-    forkJoinEmpty$.subscribe(fullObserver);
+    forkJoinEmpty$.subscribe(getFullObserver("empty array"));
 </script>
 
 <section>

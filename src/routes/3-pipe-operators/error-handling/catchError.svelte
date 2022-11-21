@@ -16,9 +16,16 @@
         return { error: "Something went wrong" };
     })
         .pipe(
-            catchError((error) => of(error)) // popular choice
-            // catchError((error) => EMPTY), // popular choice
-            // catchError((error) => of(1, 2, 3)), // also possible to return values instead of the error itself
+            // main idea: to return values instead of the error itself
+            // catchError((error) => of(1, 2, 3)), 
+            
+            // usually in real life we use this approach
+            catchError((error) => of(error)),
+            // or
+            catchError((error) => {
+                console.error(error);
+                return EMPTY; // empty observable immediately sends complete notification
+            })
 
             // optional: when we throw another error we still get the initial error
             // catchError(

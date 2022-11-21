@@ -1,52 +1,35 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
-    import { peopleMap } from "$utils/constants";
-    import type { IPerson } from "$utils/interfaces";
+    import { userMap } from "$utils/constants";
+    import type { IUser } from "$utils/interfaces";
     import { getFullObserver } from "$utils/rxjs-prefab";
-    import { filter, from, range, throwError } from "rxjs";
+    import { filter, from } from "rxjs";
 
-    const data: IPerson[] = [peopleMap.spy, peopleMap.dad, peopleMap.baby, peopleMap.mom];
+    const users: IUser[] = [null, userMap.spy, userMap.dad, userMap.baby, userMap.mom];
+    
 
-    // basic use case of the filter operator
-    from(data)
-        .pipe(filter((person: IPerson) => person.age > 21))
-        .subscribe(getFullObserver("filter people"));
-
-    // multiple filters
-    from(data)
+    // basic use case
+    from(users)
         .pipe(
-            filter((person) => !!person),
-            filter((person) => person.age > 21),
-            filter((person) => person.profession === "dad" || person.profession === "mom"),
-            filter((person) => person.name === "John"),
+            // filter((user) => user.age > 18),
+            // filter((user) => user.profession === "dad" || user.profession === "mom"),
+            // filter((user) => user.name === "John"),
             // or
             filter(
-                (person) =>
-                    !!person &&
-                    person.age > 21 &&
-                    (person.profession === "dad" || person.profession === "mom") &&
-                    person.name === "John"
-            )
+                (user) =>
+                    !!user &&
+                    user.age > 21 &&
+                    (user.profession === "dad" || user.profession === "mom") &&
+                    user.name === "John"
+            ),
+            filter((user) => {
+                throw new Error("Something went wrong");
+            })
         )
-        .subscribe(getFullObserver("filter people"));
+        .subscribe(getFullObserver("filter"));
 
-    // how errors are handled in most pipe operators by default:
-    // the error notification is passed down to the last observer
-    throwError(() => "Something went wrong")
-        .pipe(filter((person) => !!person))
-        .subscribe(getFullObserver("error filter"));
-
-    /**
-     * deprecated
-     */
-    // multiple filter operators
-    range(1, 10)
-        .pipe(
-            filter((value) => !!value),
-            filter((value) => value > 3 && value < 7),
-            filter((value) => value % 2 === 0)
-        )
-        .subscribe(getFullObserver("multiple filters"));
+    // error use case
+    // from(data).subscribe(getFullObserver("error filter"));
 </script>
 
 <section>
