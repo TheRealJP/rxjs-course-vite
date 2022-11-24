@@ -1,43 +1,119 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
-    import { getFullObserver } from "$utils/rxjs-prefab";
-    import { combineLatest, filter, fromEvent, interval, of, timer, withLatestFrom } from "rxjs";
-    import { fromFetch } from "rxjs/fetch";
+    import { activityImgMap, activityMap, getImage, userImgMap, userMap } from "$utils/constants";
+    import type { IActivity, IUser } from "$utils/interfaces";
+    import { fromEvent, map, tap, withLatestFrom } from "rxjs";
+    import { onMount } from "svelte";
 
-    const fullObserver = getFullObserver("withLatestFrom");
+    // data
+    const users: IUser[] = [
+        { ...userMap.doctor },
+        { ...userMap.ninja },
+        { ...userMap.spy },
+        { ...userMap.farmer },
+    ];
+    const activities: IActivity[] = [
+        { ...activityMap.basketball },
+        { ...activityMap.cooking },
+        { ...activityMap.carRepair },
+    ];
 
-    // interval(1000)
-    //     .pipe(withLatestFrom(of(123)))
-    //     .subscribe(fullObserver);
+    // variables
+    let emittedUserImg, emittedActivityImg, nextActivityImg;
 
-    const mouseClick$ = fromEvent<MouseEvent>(document, "click");
+    onMount(() => {
+        const userButton = document.querySelector("#user-button");
+        const activityButton = document.querySelector("#activity-button");
 
-    // mouseClick$
-    //     .pipe(withLatestFrom(of("something"), interval(3000)))
-    //     .subscribe(([clickEvent, ofValue, intervalValue]) =>
-    //         console.log({ mouseX: clickEvent.clientX, ofValue, intervalValue })
-    //     );
+        //  emits a user on each click
+        const users$ = fromEvent(userButton, "click").pipe(
+            map((click, i) => users[i % users.length])
+        );
+        //  emits an activity on each click
+        const activities$ = fromEvent(activityButton, "click").pipe(
+            map((click, i) => activities[i % activities.length]),
+            tap((activity) => {
+                console.log(`---- next activity: ${activity.description} ----`);
+                nextActivityImg = getImage(activity.id, activityImgMap);
+            })
+        );
 
-    const httpCall$ = fromFetch("https://www.boredapi.com/api/activity?key=5881028", {
-        selector: (response) => response.json(),
+        // use case
+        users$
+            .pipe(
+                withLatestFrom(activities$),
+                tap(([user, activity]) => {
+                    emittedUserImg = getImage(user.id, userImgMap);
+                    emittedActivityImg = getImage(activity.id, activityImgMap);
+
+                    console.log(`(${user.profession}) ${user.name} is ${activity.description}`);
+                })
+            )
+            .subscribe();
     });
 
-    const interval$ = interval(2000);
-
-    interval$
-        .pipe(
-            withLatestFrom(httpCall$),
-            filter(([interval, httpResponse]) => httpResponse)
-        )
-        .subscribe(([interval, httpResponse]) => {
-            // .subscribe(data => {
-            // console.log('data: ', data);
-
-            const participants = httpResponse.participants + interval;
-            console.log({ participants });
-        });
 </script>
 
 <section>
     <Page title="WithLatestFrom works" subTitle="(Open devtools)" />
+
+    <!-- next user & activity -->
+    <div class="flex justify-center items-center mt-8 w-96">
+        <!-- user -->
+        <div class="flex flex-col items-center mr-4">
+            <button
+                data-mdb-ripple="true"
+                type="button"
+                class="bg-green-500 capitalize text-sm rounded-sm h-8 w-32 font-bold "
+                data-mdb-ripple-color="light"
+                id="user-button"
+            >
+                next user
+            </button>
+            <img
+                src={emittedUserImg ?? "/src/assets/img/empty.png"}
+                alt="activeUserImg"
+                class="w-16 h-16 mt-4"
+            />
+        </div>
+
+        <!-- activity -->
+        <div class="flex flex-col items-center ml-4">
+            <button
+                data-mdb-ripple="true"
+                type="button"
+                class="bg-orange-400 capitalize text-sm rounded-sm h-8 w-32 font-bold"
+                data-mdb-ripple-color="light"
+                id="activity-button"
+            >
+                next activity
+            </button>
+            <img
+                src={nextActivityImg ?? "/src/assets/img/empty.png"}
+                alt="activeActivityImg"
+                class="w-16 h-16 mt-4"
+            />
+        </div>
+    </div>
+
+    <!-- result -->
+    <div class="flex flex-col w-full items-center font-bold text-xl">
+        <h1 class="mt-8">Result</h1>
+        <div class="flex flex-row items-center justify-center">
+            <p class="flex font-bold text-5xl items-center">
+                [
+                <img
+                    src={emittedUserImg ?? "/src/assets/img/empty.png"}
+                    alt="activeUserImg"
+                    class="w-16 h-16"
+                />,
+                <img
+                    src={emittedActivityImg ?? "/src/assets/img/empty.png"}
+                    alt="activeActivityImg"
+                    class="w-16 h-16"
+                />
+                ]
+            </p>
+        </div>
+    </div>
 </section>

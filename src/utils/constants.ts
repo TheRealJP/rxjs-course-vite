@@ -1,24 +1,54 @@
-import type { IUser, Item } from "./interfaces"
+import type { IUser, Item, IActivity } from "./interfaces"
 
 /** lessons */
 export const userMap: { [user: string]: IUser } = {
-  spy: { age: 20, name: "James", profession: "spy" },
-  singer: { age: 31, name: "Cassandra", profession: "singer" },
-  ninja: { age: 28, name: "Hanzo", profession: "ninja" },
-  farmer: { age: 48, name: "Thomas", profession: "farmer" },
-  doctor: { age: 38, name: "Hippocrates", profession: "doctor" },
-  princess: { age: 17, name: "Anna", profession: "princess" },
-  wizard: { age: 999, name: "Odin", profession: "wizard" },
-  baby: { age: 1, name: "Benjamin", profession: "baby" },
-  dad: { age: 33, name: "John", profession: "dad" },
-  mom: { age: 27, name: "Olivia", profession: "mom" }
+  spy: { id: 1, age: 20, name: "James", profession: "spy" },
+  singer: { id: 2, age: 31, name: "Cassandra", profession: "singer" },
+  ninja: { id: 3, age: 28, name: "Hanzo", profession: "ninja" },
+  farmer: { id: 4, age: 48, name: "Thomas", profession: "farmer" },
+  doctor: { id: 5, age: 38, name: "Hippocrates", profession: "doctor" },
+  princess: { id: 6, age: 17, name: "Anna", profession: "princess" },
+  wizard: { id: 7, age: 999, name: "Odin", profession: "wizard" },
+  baby: { id: 8, age: 1, name: "Benjamin", profession: "baby" },
+  dad: { id: 9, age: 33, name: "John", profession: "dad" },
+  mom: { id: 10, age: 27, name: "Olivia", profession: "mom" }
 }
 export const users: IUser[] = [...Object.values(userMap)]
+
+export const activityMap: { [activity: string]: IActivity } = {
+  basketball: { id: 1, duration: 60 * 60 * 1, description: "playing basketball", participants: 2 },
+  cooking: { id: 2, duration: 60 * 60 * 0.5, description: "cooking a meal", participants: 1 },
+  carRepair: { id: 3, duration: 60 * 60 * 2, description: "repairing a car", participants: 1 },
+}
+
+export const activityImgMap: { [activityId: number]: string } = {
+  1: "/src/assets/img/activity/basketball.png",
+  2: "/src/assets/img/activity/cooking.png",
+  3: "/src/assets/img/activity/fixing.png",
+}
+
+export const userImgMap: { [userId: number]: string } = {
+  1: "/src/assets/img/users/spy.png",
+  2: "/src/assets/img/users/singer.png",
+  3: "/src/assets/img/users/ninja.png",
+  4: "/src/assets/img/users/farmer.png",
+  5: "/src/assets/img/users/doctor.png",
+  6: "/src/assets/img/users/princess.png",
+  7: "/src/assets/img/users/wizard.png",
+  8: "/src/assets/img/users/baby.png",
+  9: "/src/assets/img/users/dad.png",
+  10: "/src/assets/img/users/mom.png",
+}
+
+
+export function getImage(id, map) {
+  return new URL(map[id], import.meta.url).href;
+}
 
 
 /** meta */
 // root paths -------------------------------------------
-const fundamentalRoot = '/0-fundamentals'
+const fundamentalRoot = newFunction()
 const basicBuildingBlockRoot = '/1-building-blocks'
 const creationOperatorsRoot = '/2-creation-operators'
 const pipeOperatorsRoot = '/3-pipe-operators'
@@ -270,4 +300,8 @@ export const itemCollections = {
   SUBJECTS: subjectsLessons,
 }
 
+
+function newFunction() {
+  return '/0-fundamentals'
+}
 

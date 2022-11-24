@@ -1,19 +1,5 @@
 import { delay, Observable, of, tap } from "rxjs";
-import type { IUser } from "./interfaces";
-
-
-/** @deprecated */
-class mockLoginService {
-    static createLoginTokenForUser(user: IUser) {
-        setTimeout(() => {
-            console.log(
-                "(side effect function) succesfully created a login token for  this user:",
-                user
-            );
-        }, Math.random() * 1500);
-    }
-}
-
+import type { ILoginData, IUser } from "./interfaces";
 
 export class LoginService {
     loggedInUserToken: string;
@@ -21,38 +7,35 @@ export class LoginService {
     /**
      * fake login function, to demonstrate {@link tap} use case
      * @param the user {@link IUser} which we want to login and create a login token for
-     * @returns the loginData {@link ILoginData} 
+     * @returns the loginData {@link ILoginData}
      */
     loginUser(user: IUser): Observable<ILoginData> {
-        // simulate login http request
         const randomToken = this.generateToken();
-        const loginData$ = of({ userName: user.name, token: randomToken })
 
-        // we only want to subscribe to this observable when the "loginUser" function is called
-        // but sometimes we also want to use the data from this subscription
-        // to update a variable in the class itself
-        // This is another use case of the tap operator: 
-        // - it allows us to delay the activation of the observable 
-        // - but also gives us the opportunity to setup before we subscribe
-        // - it gives us the opportunity to setup before we subscribe
+        // problem:
+        // We only want to subscribe to this Observable<ILoginData> 
+        // when the "loginUser" function is called somewhere else.
+        // But in this case we also want to use the data from this subscription
+        // to update the "loggedInUserToken" variable
 
-        return loginData$.pipe(
-            // simulate POST HTTP request waiting time
+        // solution:
+        // The tap operator gives us the opportunity to predefine
+        // which variable we want to update in this class 
+        // before the loginUser function is called to create a new subscription
+
+        // "of" operator simulates the response of a login HTTP request
+        return of({ userName: user.name, token: randomToken }).pipe(
+            // simulates execution time
             delay(Math.random() * 1500),
-            // use the tap operator to update the local variable "tokenLoggedInUser"
-            // before we subscribe somewhere else
-            // 
-            tap((loginData: ILoginData) => {
-                console.log(
-                    `(side effect example) created login token & stored in LoginService`
-                );
-                this.loggedInUserToken = loginData.token;
 
-                // even though we try to return a string...
-                return loginData.token
+            // We're using the tap operator to update the local variable "tokenLoggedInUser"
+            // before we subscribe somewhere else
+            tap((loginData: ILoginData) => {
+                // console.log(
+                //     `(loginUser) I created a login token & stored it in the LoginService class`
+                // );
+                this.loggedInUserToken = loginData.token;
             }),
-            // ...the next operator still receives the full loginData object
-            tap(console.log)
         )
     }
 
@@ -68,8 +51,3 @@ export class LoginService {
     }
 }
 
-
-export interface ILoginData {
-    userName: string;
-    token: string;
-}
