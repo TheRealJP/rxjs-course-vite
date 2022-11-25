@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { schoolClassMap } from "$utils/constants";
     import type { ISchoolClass } from "$utils/interfaces";
     import { getFullObserver } from "$utils/rxjs-prefab";
     import { combineLatest, fromEvent, of, throwError, timer } from "rxjs";
@@ -40,22 +41,10 @@
 
     /** --- classic combineLatest use case: applying filter criteria --- */
     const schoolClasses: ISchoolClass[] = [
-        {
-            title: "biology",
-            category: "science",
-        },
-        {
-            title: "mathematics",
-            category: "science",
-        },
-        {
-            title: "drawing",
-            category: "art",
-        },
-        {
-            title: "painting",
-            category: "art",
-        },
+        { ...schoolClassMap.biology },
+        { ...schoolClassMap.mathematics },
+        { ...schoolClassMap.drawing },
+        { ...schoolClassMap.painting },
     ];
     let filteredClasses: ISchoolClass[] = schoolClasses;
 
@@ -64,13 +53,13 @@
         const titleSearch = document.getElementById("title-search");
 
         // --- we'll also do this part together ---
-        const dropdownEvent$ = fromEvent<Event>(categoryDropdown, "change");
-        const searchEvent$ = fromEvent<InputEvent>(titleSearch, "input");
+        const categoryDropdown$ = fromEvent<Event>(categoryDropdown, "change");
+        const titleSearch$ = fromEvent<InputEvent>(titleSearch, "input");
 
-        const subscription = combineLatest([dropdownEvent$, searchEvent$]).subscribe(
-            ([dropdownEvent, searchEvent]) => {
-                const title = (searchEvent.target as any).value;
-                const category = (dropdownEvent.target as any).value;
+        const subscription = combineLatest([categoryDropdown$, titleSearch$]).subscribe(
+            ([dropdownValue, titleValue]) => {
+                const title = (titleValue.target as any).value;
+                const category = (dropdownValue.target as any).value;
 
                 filteredClasses = schoolClasses.filter(
                     (cl) => cl.title.includes(title) && cl.category === category

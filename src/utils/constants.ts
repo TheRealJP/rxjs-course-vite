@@ -1,4 +1,4 @@
-import type { IUser, Item, IActivity } from "./interfaces"
+import type { IUser, Item, IActivity, ISchoolClass } from "./interfaces"
 
 /** lessons */
 export const userMap: { [user: string]: IUser } = {
@@ -13,12 +13,19 @@ export const userMap: { [user: string]: IUser } = {
   dad: { id: 9, age: 33, name: "John", profession: "dad" },
   mom: { id: 10, age: 27, name: "Olivia", profession: "mom" }
 }
-export const users: IUser[] = [...Object.values(userMap)]
+// export const users: IUser[] = [...Object.values(userMap)]
 
 export const activityMap: { [activity: string]: IActivity } = {
   basketball: { id: 1, duration: 60 * 60 * 1, description: "playing basketball", participants: 2 },
   cooking: { id: 2, duration: 60 * 60 * 0.5, description: "cooking a meal", participants: 1 },
   carRepair: { id: 3, duration: 60 * 60 * 2, description: "repairing a car", participants: 1 },
+}
+
+export const schoolClassMap: { [schoolClass: string]: ISchoolClass } = {
+  biology: { title: "biology", category: "science"},
+  mathematics: { title: "mathematics", category: "science"},
+  drawing: { title: "drawing", category: "art"},
+  painting: { title: "painting", category: "art"},
 }
 
 export const activityImgMap: { [activityId: number]: string } = {

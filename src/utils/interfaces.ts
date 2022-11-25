@@ -1,7 +1,7 @@
 /** lessons */
 export interface IButtonData {
-    name: string;
     id: number;
+    name: string;
 }
 
 export interface ISchoolClass {

@@ -1,24 +1,99 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
+    import { schoolClassMap, userMap } from "$utils/constants";
+    import type { ISchoolClass, IUser } from "$utils/interfaces";
     import { getFullObserver } from "$utils/rxjs-prefab";
-    import { from, map, range } from "rxjs";
+    import { combineLatest, from, fromEvent, map, range, tap } from "rxjs";
+    import { onMount } from "svelte";
 
+    /** quick note: order of pipe operator is important for the end result */
     range(1, 5)
         .pipe(
             map((number) => number * 2),
             map((number) => Math.pow(number, 2))
         )
-        .subscribe(getFullObserver("number map"));
+        .subscribe(getFullObserver("order of operators"));
 
-    // from([
-    //     { name: "Summer", age: 17 },
-    //     { name: "Jerry", age: 34 },
-    //     { name: "Rick", age: 70 },
-    // ])
-    //     .pipe(map(({ name }) => name))
-    //     .subscribe(getFullObserver("get name only map"));
+    /** marble diagram example */
+    const users: IUser[] = [userMap.doctor, userMap.ninja, userMap.spy, userMap.farmer];
+
+    from(users)
+        .pipe(
+            // map((user) => user.profession),
+            map(({ profession }) => profession)
+        )
+        .subscribe(getFullObserver("map user.profession"));
+
+    /** rewriting the combineLatest exercise by using pipe operators like map */
+    const schoolClasses: ISchoolClass[] = [
+        schoolClassMap.biology,
+        schoolClassMap.mathematics,
+        schoolClassMap.drawing,
+        schoolClassMap.painting,
+    ];
+    let filteredClasses: ISchoolClass[] = schoolClasses;
+
+    onMount(() => {
+        // HTML elements
+        const categoryDropdown = document.getElementById("category-dropdown");
+        const titleSearch = document.getElementById("title-search");
+
+        // fromEvents
+        const categoryDropdown$ = fromEvent<Event>(categoryDropdown, "change");
+        const titleSearch$ = fromEvent<InputEvent>(titleSearch, "input");
+
+        // combined filter observables
+        const classFilters$ = combineLatest([categoryDropdown$, titleSearch$]).pipe(
+            map(([dropdownValue, titleValue]) => {
+                const category = (dropdownValue.target as any).value;
+                const title = (titleValue.target as any).value;
+                return [category, title];
+            }),
+            tap(([category, title]) => {
+                filteredClasses = schoolClasses.filter(
+                    (cl) => cl.title.includes(title) && cl.category === category
+                );
+
+                // if default is selected show all the classes and only allow filtering on title
+                if (category === "default") {
+                    filteredClasses = schoolClasses.filter((cl) => cl.title.includes(title));
+                }
+            })
+        );
+
+        // subscription
+        classFilters$.subscribe();
+    });
 </script>
 
 <section>
     <Page title="Map works" subTitle="(Open devtools)" />
+
+    <!-- filters -->
+    <section id="filter-container" class="flex justify-center">
+        <select id="category-dropdown" class="border-slate-200 border-solid rounded-md border-2">
+            <option value="default" selected>--- Category ---</option>
+            <option value="science">Science</option>
+            <option value="art">Art</option>
+        </select>
+        <input
+            id="title-search"
+            type="text"
+            class="ml-4 border-slate-200 rounded-md border-solid border-2"
+        />
+    </section>
+
+    <!-- cards -->
+    <section class="flex my-4 h-48 w-full flex-wrap justify-center">
+        {#each filteredClasses as schoolClass}
+            <div
+                class="bg-slate-200 rounded-md p-4 m-4 flex flex-basis flex-col justify-between w-48 h-48"
+            >
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-1">{schoolClass.title}</h2>
+                    <h3 class="text-gray-400 text-">{schoolClass.category}</h3>
+                </div>
+            </div>
+        {/each}
+    </section>
 </section>

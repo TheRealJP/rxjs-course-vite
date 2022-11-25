@@ -29,29 +29,28 @@
         const users$ = fromEvent(userButton, "click").pipe(
             map((click, i) => users[i % users.length])
         );
+
         //  emits an activity on each click
         const activities$ = fromEvent(activityButton, "click").pipe(
             map((click, i) => activities[i % activities.length]),
             tap((activity) => {
-                console.log(`---- next activity: ${activity.description} ----`);
                 nextActivityImg = getImage(activity.id, activityImgMap);
+                console.log(`---- next activity: ${activity.description} ----`);
             })
         );
 
-        // use case
         users$
             .pipe(
                 withLatestFrom(activities$),
                 tap(([user, activity]) => {
-                    emittedUserImg = getImage(user.id, userImgMap);
-                    emittedActivityImg = getImage(activity.id, activityImgMap);
-
                     console.log(`(${user.profession}) ${user.name} is ${activity.description}`);
+
+                    emittedActivityImg = getImage(activity.id, activityImgMap);
+                    emittedUserImg = getImage(user.id, userImgMap);
                 })
             )
             .subscribe();
     });
-
 </script>
 
 <section>
