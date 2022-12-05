@@ -3,26 +3,24 @@
     import { schoolClassMap, userMap } from "$utils/constants";
     import type { ISchoolClass, IUser } from "$utils/interfaces";
     import { getFullObserver } from "$utils/rxjs-prefab";
-    import { combineLatest, from, fromEvent, map, range, tap } from "rxjs";
+    import { combineLatest, from, fromEvent, map, range, startWith, tap } from "rxjs";
     import { onMount } from "svelte";
-
-    /** quick note: order of pipe operator is important for the end result */
-    range(1, 5)
-        .pipe(
-            map((number) => number * 2),
-            map((number) => Math.pow(number, 2))
-        )
-        .subscribe(getFullObserver("order of operators"));
 
     /** marble diagram example */
     const users: IUser[] = [userMap.doctor, userMap.ninja, userMap.spy, userMap.farmer];
 
-    from(users)
-        .pipe(
-            // map((user) => user.profession),
-            map(({ profession }) => profession)
-        )
-        .subscribe(getFullObserver("map user.profession"));
+    from(users).pipe(
+        // map((user) => user.profession)
+        map(({ profession }) => profession)
+    );
+    // .subscribe(getFullObserver("map user.profession"));
+
+    /** quick note: order of pipe operator is important for the end result */
+    range(1, 3).pipe(
+        map((number) => number * 2),
+        map((number) => Math.pow(number, 2))
+    );
+    // .subscribe(getFullObserver("order of operators"));
 
     /** rewriting the combineLatest exercise by using pipe operators like map */
     const schoolClasses: ISchoolClass[] = [
@@ -39,17 +37,23 @@
         const titleSearch = document.getElementById("title-search");
 
         // fromEvents
-        const categoryDropdown$ = fromEvent<Event>(categoryDropdown, "change");
-        const titleSearch$ = fromEvent<InputEvent>(titleSearch, "input");
+        const categoryDropdown$ = fromEvent<Event>(categoryDropdown, "change").pipe(
+            startWith({ target: { value: "default" } })
+        );
+
+        const titleSearch$ = fromEvent<InputEvent>(titleSearch, "input").pipe(
+            startWith({ target: { value: "" } })
+        );
 
         // combined filter observables
         const classFilters$ = combineLatest([categoryDropdown$, titleSearch$]).pipe(
             map(([dropdownValue, titleValue]) => {
-                const category = (dropdownValue.target as any).value;
                 const title = (titleValue.target as any).value;
-                return [category, title];
+                const category = (dropdownValue.target as any).value;
+
+                return [title, category];
             }),
-            tap(([category, title]) => {
+            tap(([title, category]) => {
                 filteredClasses = schoolClasses.filter(
                     (cl) => cl.title.includes(title) && cl.category === category
                 );
@@ -70,7 +74,7 @@
     <Page title="Map works" subTitle="(Open devtools)" />
 
     <!-- filters -->
-    <section id="filter-container" class="flex justify-center">
+    <section id="filter-container" class="flex justify-center mt-8">
         <select id="category-dropdown" class="border-slate-200 border-solid rounded-md border-2">
             <option value="default" selected>--- Category ---</option>
             <option value="science">Science</option>

@@ -41,10 +41,10 @@
 
     /** --- classic combineLatest use case: applying filter criteria --- */
     const schoolClasses: ISchoolClass[] = [
-        { ...schoolClassMap.biology },
-        { ...schoolClassMap.mathematics },
-        { ...schoolClassMap.drawing },
-        { ...schoolClassMap.painting },
+        schoolClassMap.biology,
+        schoolClassMap.mathematics,
+        schoolClassMap.drawing,
+        schoolClassMap.painting,
     ];
     let filteredClasses: ISchoolClass[] = schoolClasses;
 

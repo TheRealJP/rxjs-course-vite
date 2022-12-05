@@ -6,16 +6,11 @@
     import { onMount } from "svelte";
 
     // data
-    const users: IUser[] = [
-        { ...userMap.doctor },
-        { ...userMap.ninja },
-        { ...userMap.spy },
-        { ...userMap.farmer },
-    ];
+    const users: IUser[] = [userMap.doctor, userMap.ninja, userMap.spy, userMap.farmer];
     const activities: IActivity[] = [
-        { ...activityMap.basketball },
-        { ...activityMap.cooking },
-        { ...activityMap.carRepair },
+        activityMap.basketball,
+        activityMap.cooking,
+        activityMap.carRepair,
     ];
 
     // variables
