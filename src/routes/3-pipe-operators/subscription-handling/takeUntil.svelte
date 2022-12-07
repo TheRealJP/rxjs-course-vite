@@ -1,6 +1,6 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
-    import { getFullObserver, getFullTapObserver } from "$utils/rxjs-prefab";
+    import { getFullObserver, getFullTapObserver, webSocket$ } from "$utils/rxjs-prefab";
     import {
         timer,
         interval,
@@ -18,17 +18,6 @@
     } from "rxjs";
     import { onMount } from "svelte";
     import { getCat } from "../error-handling/animals";
-
-    const webSocketObservable$ = new Observable<MessageEvent>((subscriber) => {
-        const ws = new WebSocket(
-            "wss://demo.piesocket.com/v3/channel_1?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV"
-        );
-
-        ws.addEventListener("message", (event) => subscriber.next(event));
-    }).pipe(
-        map((message, i) => `(${i}) ${message.data}`),
-        debounceTime(500)
-    );
 
     onMount(() => {
         /** --- basic unsubscribe strategy --- */
@@ -67,7 +56,7 @@
 
         /** example 1: interval producer */
         const infiniteSource1$ = interval(2000).pipe(takeUntil(notifier$));
-        const infiniteSource2$ = webSocketObservable$.pipe(takeUntil(notifier$));
+        const infiniteSource2$ = webSocket$.pipe(takeUntil(notifier$));
 
         infiniteSource1$.subscribe(getFullObserver("interval$"));
         infiniteSource2$.subscribe(getFullObserver("websocket$"));

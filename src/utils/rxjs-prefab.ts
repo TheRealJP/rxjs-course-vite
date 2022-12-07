@@ -1,4 +1,4 @@
-import { delay, Observable, throwError, type Observer } from "rxjs";
+import { debounceTime, delay, map, Observable, throwError, type Observer } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import type { TapObserver } from "rxjs/internal/operators/tap";
 
@@ -116,3 +116,23 @@ export function fetchRandomUser(countryCode?: string, specificProperty?: string)
     delay(Math.random() * 1500)
   );
 }
+
+/**
+ * custom websocket observable (only emits websocket values)
+ */
+export const webSocket$ = new Observable<MessageEvent>((subscriber) => {
+  const ws = new WebSocket(
+    "wss://demo.piesocket.com/v3/channel_1?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV"
+  );
+  const type = "message";
+  const eventHandler = (event) => subscriber.next(event)
+  ws.addEventListener(type, eventHandler);
+
+  return () => {
+    ws.removeEventListener(type, eventHandler)
+    console.log("websocket teardown")
+  }
+}).pipe(
+  map((message, i) => `(${i}) ${message.data}`),
+  debounceTime(500)
+);
