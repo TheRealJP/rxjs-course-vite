@@ -106,15 +106,4 @@
     thead {
         background: #1c6ea4;
     }
-
-    .error-message {
-        color: red;
-        margin: 2rem;
-    }
-
-    .table-error {
-        background: #d0e4f5;
-        padding: 1rem;
-        width: 100%;
-    }
 </style>

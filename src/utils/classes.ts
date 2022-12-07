@@ -40,20 +40,6 @@ export class Subject {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** Iterator pattern */
 export class Iterator {
   counter = -1
