@@ -1,4 +1,4 @@
-import { debounceTime, delay, map, Observable, throwError, type Observer } from "rxjs";
+import { debounceTime, delay, filter, map, Observable, throwError, type Observer } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import type { TapObserver } from "rxjs/internal/operators/tap";
 
@@ -130,9 +130,9 @@ export const webSocket$ = new Observable<MessageEvent>((subscriber) => {
 
   return () => {
     ws.removeEventListener(type, eventHandler)
-    console.log("websocket teardown")
   }
 }).pipe(
+  filter(message => !!message.data),
   map((message, i) => `(${i}) ${message.data}`),
-  debounceTime(500)
+  debounceTime(750)
 );

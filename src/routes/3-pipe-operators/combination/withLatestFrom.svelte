@@ -2,6 +2,7 @@
     import Page from "$lib/Page.svelte";
     import { activityImgMap, activityMap, getImage, userImgMap, userMap } from "$utils/constants";
     import type { IActivity, IUser } from "$utils/interfaces";
+    import { getFullTapObserver } from "$utils/rxjs-prefab";
     import { fromEvent, map, tap, withLatestFrom } from "rxjs";
     import { onMount } from "svelte";
 
@@ -36,7 +37,7 @@
 
         users$
             .pipe(
-                withLatestFrom(activities$),
+                withLatestFrom(activities$.pipe(tap(getFullTapObserver("tap")))),
                 tap(([user, activity]) => {
                     console.log(`(${user.profession}) ${user.name} is ${activity.description}`);
 

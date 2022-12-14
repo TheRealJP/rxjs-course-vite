@@ -47,10 +47,28 @@ export const userImgMap: { [userId: number]: string } = {
   10: "/src/assets/img/users/mom.png",
 }
 
-
 export function getImage(id, map) {
   return new URL(map[id], import.meta.url).href;
 }
+
+const currentTime = new Date();
+export const newsLetters = [
+  {
+      releaseDate: new Date(currentTime.getTime() + 5 * 1000),
+      headline: "RxJS is awesome, here's why!",
+      author: "CodeGrip",
+  },
+  {
+      releaseDate: new Date(currentTime.getTime() + 10 * 1000),
+      headline: "Why is there a new Javascript library released almost everyday?",
+      author: "CodeGrip",
+  },
+  {
+      releaseDate: new Date(currentTime.getTime() + 15 * 1000),
+      headline: "Top 10 RxJS tips & tricks",
+      author: "CodeGrip",
+  },
+];
 
 
 /** meta */
