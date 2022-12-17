@@ -28,6 +28,13 @@ export interface IActivity {
     participants: number;
 }
 
+export interface INewsLetter {
+    releaseDate: Date;
+    headline: string;
+    author: string;
+}
+
+
 /** meta */
 export interface Item {
     name: string,
