@@ -21,10 +21,10 @@ export const activityMap: { [activity: string]: IActivity } = {
 }
 
 export const schoolClassMap: { [schoolClass: string]: ISchoolClass } = {
-  biology: { title: "biology", category: "science"},
-  mathematics: { title: "mathematics", category: "science"},
-  drawing: { title: "drawing", category: "art"},
-  painting: { title: "painting", category: "art"},
+  biology: { title: "biology", category: "science" },
+  mathematics: { title: "mathematics", category: "science" },
+  drawing: { title: "drawing", category: "art" },
+  painting: { title: "painting", category: "art" },
 }
 
 export const activityImgMap: { [activityId: number]: string } = {
@@ -53,26 +53,26 @@ export function getImage(id, map) {
 const currentTime = new Date();
 export const newsLetters: INewsLetter[] = [
   {
-      releaseDate: new Date(currentTime.getTime() + 5 * 1000),
-      headline: "RxJS is awesome, here's why!",
-      author: "CodeGrip",
+    releaseDate: new Date(currentTime.getTime() + 5 * 1000),
+    headline: "RxJS is awesome, here's why!",
+    author: "CodeGrip",
   },
   {
-      releaseDate: new Date(currentTime.getTime() + 10 * 1000),
-      headline: "Why is there a new Javascript library released almost everyday?",
-      author: "CodeGrip",
+    releaseDate: new Date(currentTime.getTime() + 10 * 1000),
+    headline: "Why is there a new Javascript library released almost everyday?",
+    author: "CodeGrip",
   },
   {
-      releaseDate: new Date(currentTime.getTime() + 15 * 1000),
-      headline: "Top 10 RxJS tips & tricks",
-      author: "CodeGrip",
+    releaseDate: new Date(currentTime.getTime() + 15 * 1000),
+    headline: "Top 10 RxJS tips & tricks",
+    author: "CodeGrip",
   },
 ];
 
 
 /** meta */
 // root paths -------------------------------------------
-const fundamentalRoot = newFunction()
+const fundamentalRoot = '/0-fundamentals'
 const basicBuildingBlockRoot = '/1-building-blocks'
 const creationOperatorsRoot = '/2-creation-operators'
 const pipeOperatorsRoot = '/3-pipe-operators'
@@ -109,6 +109,11 @@ export const sections: Item[] = [
 
 // lessons -------------------------------------------
 export const fundamentalConceptsLessons: Item[] = [
+  {
+    name: 'Appetizer',
+    description: 'A first taste to prepare for the main dish',
+    route: fundamentalRoot + '/appetizer',
+  },
   {
     name: 'Iterator pattern',
     description: 'Iterate over any collection',
@@ -324,8 +329,4 @@ export const itemCollections = {
   SUBJECTS: subjectsLessons,
 }
 
-
-function newFunction() {
-  return '/0-fundamentals'
-}
 

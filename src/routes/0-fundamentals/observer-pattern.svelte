@@ -1,6 +1,5 @@
 <script>
     import { Observer, Subject } from "$utils/classes";
-
     import Page from "../../lib/Page.svelte";
 
     // make sure you import subject from the "classes.ts" file
@@ -12,6 +11,7 @@
     const observer4 = new Observer();
 
     // adds observers to the internal observers collection of the subject
+    // ...do you notice something familiar?
     subject.subscribe(observer1);
     subject.subscribe(observer2);
     subject.subscribe(observer3);
