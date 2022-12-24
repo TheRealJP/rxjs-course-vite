@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Navigation from "$lib/Navigation.svelte";
+  import "tw-elements";
   import { location } from "svelte-spa-router";
   import Router from "svelte-spa-router";
-  import "tw-elements";
-  import NotFound from "$routes/not-found.svelte";
   import Index from "$routes/index.svelte";
+  import NotFound from "$lib/NotFound.svelte";
+  import Navigation from "$lib/Navigation.svelte";
   // ----------------------------
   import Iterator from "$routes/0-fundamentals/iterator-pattern.svelte";
   import Observer from "$routes/0-fundamentals/observer-pattern.svelte";
@@ -55,8 +55,7 @@
   import TakeUntil from "$routes/3-pipe-operators/subscription-handling/takeUntil.svelte";
 
   import Map from "$routes/3-pipe-operators/transformation/map.svelte";
-	import Flattening from '$routes/3-pipe-operators/transformation/flattening.svelte';
-
+  import Flattening from "$routes/3-pipe-operators/transformation/flattening.svelte";
   // ----------------------------
   import SubjectsIndex from "$routes/4-subjects/subjects-index.svelte";
   import Subject from "$routes/4-subjects/subject.svelte";
@@ -125,7 +124,7 @@
 
     // pipe operators
     "/4-subjects/": SubjectsIndex,
-    "/4-subjects/subject": Subject, 
+    "/4-subjects/subject": Subject,
     "/4-subjects/behaviorSubject": BehaviorSubject,
 
     // not found
@@ -133,7 +132,7 @@
   };
 </script>
 
-<main class="flex justify-center items-center w-full">
+<main class="flex justify-center items-center">
   {#if $location !== "/"}
     <div class="absolute left-4 top-4">
       <Navigation />
@@ -142,5 +141,3 @@
 
   <Router {routes} />
 </main>
-
-<style></style>

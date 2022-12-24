@@ -40,19 +40,9 @@
     // newsLetterSubject$.pipe(tap(getFullTapObserver("(wizard subscriber)"))).subscribe();
     // newsLetterSubject$.pipe(tap(getFullTapObserver("(orc subscriber)"))).subscribe();
 
-    // timer(3500).subscribe(() =>
+    // timer(6000).subscribe(() =>
     //     newsLetterSubject$.pipe(tap(getFullTapObserver("(fairy subscriber)"))).subscribe()
     // );
-
-    // if the subject is still running we should be able to multicast another value
-    // timer(20000).subscribe(() => {
-    //     // basic
-    //     // we can call the unsubscribe function directly on our subject because it also implements the subscription interface
-    //     newsLetterSubject$.unsubscribe();
-
-    //     console.log("---- extra newsLetter ----");
-    //     newsLetterSubject$.next({ headline: "This is an extra newsletter" });
-    // });
 
     /** using subjects in combination with takeUntil */
     const destroy$ = new Subject();

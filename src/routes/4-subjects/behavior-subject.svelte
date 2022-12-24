@@ -3,20 +3,15 @@
     import { newsLetters } from "$utils/constants";
     import type { INewsLetter } from "$utils/interfaces";
     import { getFullObserver, getFullTapObserver } from "$utils/rxjs-prefab";
-    import { BehaviorSubject, delayWhen, from, fromEvent, map, tap, timer } from "rxjs";
-    import { onMount } from "svelte";
+    import { BehaviorSubject, delayWhen, from, fromEvent, map, ReplaySubject, tap, timer } from "rxjs";
+    import { onDestroy, onMount } from "svelte";
 
-    /** ---- newsLetter scenario ---- */
-    const newsLetterSubject$ = new BehaviorSubject<INewsLetter>(
-        // choose a default value
-        {
-            headline: "Default newsLetter",
-            author: "",
-            releaseDate: new Date(),
-        }
-        // or a null value
-        // null
-    );
+    /** -------- newsLetter scenario -------- */
+    const newsLetterSubject$ = new BehaviorSubject<INewsLetter>({
+        headline: "Welcome to our newsletter",
+        author: "CodeGrip",
+        releaseDate: null,
+    });
 
     from(newsLetters).pipe(
         delayWhen((newsLetter) => timer(newsLetter.releaseDate)),
@@ -26,51 +21,58 @@
 
     // newsLetterSubject$.pipe(tap(getFullTapObserver("(wizard subscriber)"))).subscribe();
     // newsLetterSubject$.pipe(tap(getFullTapObserver("(orc subscriber)"))).subscribe();
-    // timer(3500).subscribe(() =>
+    // timer(6000).subscribe(() =>
     //     newsLetterSubject$.pipe(tap(getFullTapObserver("(fairy subscriber)"))).subscribe()
     // );
 
-    /** ---- store example ---- */
+    /** -------- store example -------- */
     const store$ = new BehaviorSubject({
         animals: [{ name: "Cat" }, { name: "Dog" }, { name: "Monkey" }],
         caretaker: { name: "John" },
     });
 
     onMount(() => {
-        const showStoreStatusButton = document.querySelector("#show-store-status");
+        // status html element
         const storeStatus = document.querySelector("#store-status");
-        const updateStoreButton = document.querySelector("#update-animal-button");
-        const updateCareTaker = document.querySelector("#update-caretaker-button");
+        // buttons
+        const showStoreStatusButton = document.querySelector("#show-store-status");
+        const addAnimalButton = document.querySelector("#update-animal-button");
+        const updateCareTakerButton = document.querySelector("#update-caretaker-button");
+        // input
         const animalInput: HTMLInputElement = document.querySelector("#animal-input");
         const careTakerInput: HTMLInputElement = document.querySelector("#caretaker-input");
 
-        // add animals
-        fromEvent(updateStoreButton, "click").subscribe(() => {
+        // update animals
+        fromEvent(addAnimalButton, "click").subscribe(() => {
+            if (!animalInput.value) return;
+
             const newAnimalArray = [...getAnimals(), { name: animalInput.value }];
             updateStore("animals", newAnimalArray);
         });
 
         // update caretaker
-        fromEvent(updateCareTaker, "click").subscribe(() => {
+        fromEvent(updateCareTakerButton, "click").subscribe(() => {
+            if (!careTakerInput.value) return;
+
             const newCareTaker = { name: careTakerInput.value };
             updateStore("caretaker", newCareTaker);
         });
 
         // show store status
         fromEvent(showStoreStatusButton, "click").subscribe(() => {
-            storeStatus.innerHTML = `There are ${getAnimals().length} animals in the store and ${
+            storeStatus.innerHTML = `There are ${getAnimals().length} in the store and ${
                 getCareTaker().name
             } is taking care of them`;
         });
     });
 
     // extra store functions
-    function updateStore(key, value) {
-        store$.next({ ...getStore(), [key]: value });
-    }
-
     function getStore() {
         return store$.value;
+    }
+
+    function updateStore(key, value) {
+        store$.next({ ...getStore(), [key]: value });
     }
 
     function getCareTaker() {
@@ -82,11 +84,9 @@
     }
 </script>
 
-<section class="w-full">
-    <!-- <Page title="BehaviorSubject works" subTitle="(Open devtools)" /> -->
-
+<section>
     <!-- store status -->
-    <p class="my-4 w-full flex-1" id="store-status" />
+    <p class="my-4" id="store-status" />
     <button
         id="show-store-status"
         data-mdb-ripple="true"
@@ -96,15 +96,17 @@
         Check store
     </button>
 
+    <!-- $store$
+    store$ | async -->
+
     <!-- show data in store -->
-    <section class="mt-4">
+    <section class="mt-4 w-full">
         <h1 class="text-2xl font-bold my-2">Store</h1>
         <div class="flex justify-between h-48">
-            <div
-                class="flex-1 mr-2 border-2 border-solid  border-gray-500 rounded-sm p-3"
-            >
+            <div class="flex-1 mr-2 border-2 border-solid  border-gray-500 rounded-sm p-3">
                 <h1 class="text-xl font-bold">Animals</h1>
                 <div class="overflow-y-auto max-h-32">
+                    <!-- {#each [] as animal} -->
                     {#each $store$.animals as animal}
                         <p>{animal.name}</p>
                     {/each}
@@ -119,7 +121,7 @@
     </section>
 
     <!-- update store -->
-    <div class="flex flex-col mt-16">
+    <div class="flex flex-col mt-16 w-full">
         <div class="mb-4 flex">
             <button
                 id="update-animal-button"
@@ -132,6 +134,7 @@
             <input
                 id="animal-input"
                 type="text"
+                autocomplete="off"
                 placeholder="animal"
                 class="ml-4 border-slate-200 pl-4 rounded-md border-solid border-2"
             />
@@ -148,6 +151,7 @@
             <input
                 id="caretaker-input"
                 type="text"
+                autocomplete="off"
                 placeholder="caretaker"
                 class="ml-4 border-slate-200 pl-4 rounded-md border-solid border-2"
             />

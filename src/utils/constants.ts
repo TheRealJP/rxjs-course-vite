@@ -13,7 +13,6 @@ export const userMap: { [user: string]: IUser } = {
   dad: { id: 9, age: 33, name: "John", profession: "dad" },
   mom: { id: 10, age: 27, name: "Olivia", profession: "mom" }
 }
-// export const users: IUser[] = [...Object.values(userMap)]
 
 export const activityMap: { [activity: string]: IActivity } = {
   basketball: { id: 1, duration: 60 * 60 * 1, description: "playing basketball", participants: 2 },
@@ -54,17 +53,17 @@ export function getImage(id, map) {
 const currentTime = new Date();
 export const newsLetters: INewsLetter[] = [
   {
-      releaseDate: new Date(currentTime.getTime() + 3 * 1000),
+      releaseDate: new Date(currentTime.getTime() + 5 * 1000),
       headline: "RxJS is awesome, here's why!",
       author: "CodeGrip",
   },
   {
-      releaseDate: new Date(currentTime.getTime() + 5 * 1000),
+      releaseDate: new Date(currentTime.getTime() + 10 * 1000),
       headline: "Why is there a new Javascript library released almost everyday?",
       author: "CodeGrip",
   },
   {
-      releaseDate: new Date(currentTime.getTime() + 10 * 1000),
+      releaseDate: new Date(currentTime.getTime() + 15 * 1000),
       headline: "Top 10 RxJS tips & tricks",
       author: "CodeGrip",
   },
