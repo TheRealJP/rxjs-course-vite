@@ -20,11 +20,8 @@
         const activityButton = document.querySelector("#activity-button");
 
         //  emits a user on each click
-    
 
         //  emits an activity on each click
-      
-
     });
 </script>
 
