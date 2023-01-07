@@ -2,23 +2,6 @@
     import Page from "$lib/Page.svelte";
     import { activityMap } from "$utils/constants";
     import type { IActivity } from "$utils/interfaces";
-    import { getFullObserver, getFullTapObserver } from "$utils/rxjs-prefab";
-    import {
-        catchError,
-        combineLatest,
-        EMPTY,
-        filter,
-        first,
-        forkJoin,
-        from,
-        map,
-        of,
-        range,
-        tap,
-        throwError,
-    } from "rxjs";
-    import { fromFetch } from "rxjs/fetch";
-    import { getCat, getDog, getMonkey } from "./animals";
 
     /**
      * basic catchError scenarios
@@ -29,28 +12,10 @@
         activityMap.carRepair,
     ];
 
-    from(activities).pipe(
-        map(({ description }) => {
-            throw new Error("Oh no, an error occurred while mapping a value!");
-            return description;
-        }),
-        catchError((error) => {
-            return of("(catchError) " + error.message);
-            // return of(null);
-            // return EMPTY;
-        })
-    );
-    // .subscribe(getFullObserver("activities"));
-
     /**
      * catchError scenario with combination observables
      */
     let htmlAnimals = [];
-    const animals$ = forkJoin([getMonkey(), getCat(), getDog()]).pipe(
-        tap((animals) => (htmlAnimals = animals)),
-    );
-
-    animals$.subscribe(getFullObserver("animals"));
 </script>
 
 <section>
@@ -77,7 +42,7 @@
                         </tr>
                     {:else}
                         <tr>
-                            <!-- <td class="text-center text-red-500" colspan="4">{animal}</td> -->
+                            <td class="text-center text-red-500" colspan="4">{animal}</td>
                         </tr>
                     {/if}
                 {/each}

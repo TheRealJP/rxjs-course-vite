@@ -1,4 +1,4 @@
-import { catchError, EMPTY, filter, map, of } from "rxjs";
+import { map } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 
 const baseUrl = "https://api.gbif.org/v1/species";
@@ -33,23 +33,12 @@ export const store = {
 function getAnimal(url, animalLabel) {
     return fromFetch(url, options).pipe(
         map((animalData) => animalInfo(animalData, animalLabel)),
-        // catchError((error) => of(error.message)),
-        // catchError((error) => of( "Couldn't fetch " + animalLabel)),
-        // catchError((error) => {
-        //     store.animals.error = "Couldn't fetch " + animalLabel
-        //     console.log(store.animals.error)
-        //     // return of(store.animals.error)
-        //     return of(null)
-        // }),
-        // catchError((error) => of(defaultDogValue))
-        catchError((error) => EMPTY)
-        // catchError((error) => EMPTY),
     )
 }
 
 // specific animal http GET requests
 export const getMonkey = () => getAnimal(`${baseUrl}/9621/children`, "Monkey")
 export const getCat = () => getAnimal(`${baseUrl}/9703/children`, "Cat")
-export const getDog = () => getAnimal(`${baseUrl}/9701/childrenn`, "Dog") // children
+export const getDog = () => getAnimal(`${baseUrl}/9701/children`, "Dog") // children
 
 
