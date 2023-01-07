@@ -1,5 +1,6 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
+    import { getCat } from "$utils/animals";
     import { getFullObserver, getFullTapObserver } from "$utils/rxjs-prefab";
     import {
         timer,
@@ -11,7 +12,6 @@
         map,
     } from "rxjs";
     import { onMount } from "svelte";
-    import { getCat } from "../error-handling/animals";
 
     onMount(() => {
         /** --- basic unsubscribe strategy --- */
