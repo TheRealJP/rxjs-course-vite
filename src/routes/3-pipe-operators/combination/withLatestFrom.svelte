@@ -1,9 +1,7 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
-    import { activityImgMap, activityMap, getImage, userImgMap, userMap } from "$utils/constants";
+    import { activityMap, userMap } from "$utils/constants";
     import type { IActivity, IUser } from "$utils/interfaces";
-    import { getFullTapObserver } from "$utils/rxjs-prefab";
-    import { fromEvent, map, tap, withLatestFrom } from "rxjs";
     import { onMount } from "svelte";
 
     // data
@@ -22,30 +20,11 @@
         const activityButton = document.querySelector("#activity-button");
 
         //  emits a user on each click
-        const users$ = fromEvent(userButton, "click").pipe(
-            map((click, i) => users[i % users.length])
-        );
+    
 
         //  emits an activity on each click
-        const activities$ = fromEvent(activityButton, "click").pipe(
-            map((click, i) => activities[i % activities.length]),
-            tap((activity) => {
-                nextActivityImg = getImage(activity.id, activityImgMap);
-                console.log(`---- next activity: ${activity.description} ----`);
-            })
-        );
+      
 
-        users$
-            .pipe(
-                withLatestFrom(activities$.pipe(tap(getFullTapObserver("tap")))),
-                tap(([user, activity]) => {
-                    console.log(`(${user.profession}) ${user.name} is ${activity.description}`);
-
-                    emittedActivityImg = getImage(activity.id, activityImgMap);
-                    emittedUserImg = getImage(user.id, userImgMap);
-                })
-            )
-            .subscribe();
     });
 </script>
 
