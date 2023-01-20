@@ -2,11 +2,9 @@
     import { schoolClassMap } from "$utils/constants";
     import type { ISchoolClass } from "$utils/interfaces";
     import { getFullObserver } from "$utils/rxjs-prefab";
-    import { combineLatest, from, fromEvent, interval, of, range, throwError, timer } from "rxjs";
-    import { ajax } from "rxjs/ajax";
+    import { fromEvent, throwError } from "rxjs";
     import { fromFetch } from "rxjs/fetch";
     import { onMount } from "svelte";
-    const fullObserver = getFullObserver("combineLatest");
 
     /** --- basic behaviors --- */
     const mouseClick$ = fromEvent<MouseEvent>(document, "click");
@@ -15,6 +13,7 @@
         selector: (response) => response.json(),
     });
     const error$ = throwError(() => "Something went wrong");
+    const fullObserver = getFullObserver("combineLatest");
 
     /** --- classic combineLatest use case: applying filter criteria --- */
     const schoolClasses: ISchoolClass[] = [
