@@ -19,9 +19,6 @@
     const timerInterval2$ = timer(0, 4000);
 
     // --- forkJoin with finite observables ---
-    const forkJoinDefault$ = forkJoin([activity1$, activity2$]);
-    // forkJoinDefault$.subscribe((activities) => console.log(activities));
-
     forkJoin([activity1$, activity2$]).subscribe({
         next: ([activity1, activity2]) => {
             console.log(
