@@ -2,18 +2,13 @@
     import Page from "$lib/Page.svelte";
     import { interval, Observable, timer } from "rxjs";
 
-    /** basic timer operator functionality */
-    // const timer0$ = timer(2000);
-    // const timer1$ = timer(2000, 1000);
-    // const timer2$ = timer(0, 1000); // mimics the interval operator behavior
-
-    // timer0$.subscribe((value) => console.log("timer0: ", value));
-    // timer1$.subscribe((value) => console.log("timer1: ", value));
-    // timer2$.subscribe((value) => console.log("timer2: ", value));
-
     /** basic interval operator functionality */
-    // const interval$ = interval(2000);
-    // interval$.subscribe((value) => console.log("interval: ", value));
+    // interval(2000).subscribe((value) => console.log("interval: ", value));
+
+    /** basic timer operator functionality */
+    // timer(2000).subscribe((number) => console.log("timer0: ", number));
+    // timer(2000, 1000).subscribe((number) => console.log("timer1: ", number));
+    // timer(0, 1000).subscribe((number) => console.log("timer2: ", number));
 
     /** custom timer operator */
     function customTimer(start: number, interval?: number) {
@@ -79,10 +74,10 @@
 
     /** bonus: using specific dates in the timer operator */
     const triggerDate = new Date();
-    triggerDate.setSeconds(triggerDate.getSeconds() + 5); 
+    triggerDate.setSeconds(triggerDate.getSeconds() + 5);
 
-    const dateTimer0$ = timer(triggerDate, 1000); // set date when 0 will be emitted
-    dateTimer0$.subscribe((value) => console.log("dateTimer0: ", value));
+    // timer(triggerDate).subscribe((value) => console.log("dateTimer0: ", value));
+    // timer(triggerDate, 1000).subscribe((value) => console.log("dateTimer0: ", value));
 </script>
 
 <section>
