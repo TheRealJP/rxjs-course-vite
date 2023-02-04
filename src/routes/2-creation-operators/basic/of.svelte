@@ -1,28 +1,25 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
-    import { from, Observable, of } from "rxjs";
+    import { from, Observable, of, Subscriber } from "rxjs";
 
-    // of example
-    const of$ = of(3.14, [1, 2, 3], "a", function hello() {
-        return "Helloooo";
-    });
-    of$.subscribe({
-        next: (value) => console.log(value),
-        complete: () => console.log("of subscription completed"),
-    });
+    const of$ = of(3.14, [1, 2, 3], "abc", Promise.resolve("promiseValue"), () => "hi");
 
-    // how creation operators work
-    function customOf<T>(...args: T[]): Observable<T> {
-        return new Observable<T>((subscriber) => {
-            args.forEach(arg => subscriber.next(arg));
-            subscriber.complete()
+    // of$.subscribe({
+    //     next: (value) => console.log(value),
+    //     complete: () => console.log("of subscription completed"),
+    // });
+
+    function customOf<T>(...args): Observable<T> {
+        return new Observable((subscriber: Subscriber<T>) => {
+            args.forEach((value) => subscriber.next(value));
+            subscriber.complete();
         });
     }
 
-    customOf([1, 2, 3], [3, 2, 1], [4, 5, 4]).subscribe({
-        next: value => console.log(value),
-        complete: () => console.log('customOf subscription completed'),
-    })
+    customOf(3.14, [1, 2, 3], "abc", Promise.resolve("promiseValue"), () => "hi").subscribe({
+        next: (value) => console.log(value),
+        complete: () => console.log("customOf subscription completed"),
+    });
 </script>
 
 <section>
