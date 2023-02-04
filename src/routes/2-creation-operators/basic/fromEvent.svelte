@@ -2,46 +2,42 @@
     import { fromEvent, Observable } from "rxjs";
     import { onMount } from "svelte";
 
-    function customFromEventt<T extends Event>(target: HTMLElement | Document, eventName: string) {
+    function customFromEvent<T extends Event>(
+        eventTarget: Document | HTMLElement,
+        eventName: string
+    ) {
         return new Observable<T>((subscriber) => {
             const eventHandler = (event: T) => {
-                // console.log("customFromEvent producer: ", event.type); // eventHandler
                 subscriber.next(event);
             };
 
-            target.addEventListener(eventName, eventHandler);
+            eventTarget.addEventListener(eventName, eventHandler);
 
             return () => {
-                target.removeEventListener(eventName, eventHandler);
+                eventTarget.removeEventListener(eventName, eventHandler);
             };
         });
     }
 
-    // move on from here
-
     onMount(() => {
         const square = document.getElementById("square");
+        const input = document.getElementById("input");
 
         const clickEvent$ = fromEvent<MouseEvent>(square, "click");
 
-        clickEvent$.subscribe((event) => {
-            console.log("fromEvent: ", { eventTarget: event.type, x: event.x, y: event.y });
-        });
-
-        // -------- other event example, works the same way
-        const input = document.getElementById("input");
-        const keyDownEvent$ = customFromEventt<KeyboardEvent>(input, "keydown").subscribe((event) =>
-            console.log("customFromEvent keydown: ", {
-                eventType: event.type,
-                key: event.key,
-            })
+        const clickSubscription = clickEvent$.subscribe((event) =>
+            console.log("fromEvent: ", { eventType: event.type, x: event.x, y: event.y })
         );
 
-        // setTimeout(() => {
-        //     clickEventSubscription.unsubscribe();
-        //     customClickEventSubscription.unsubscribe();
-        //     console.log("Unsubscribed");
-        // }, 3000);
+        const keyDownSubscription = customFromEvent<KeyboardEvent>(input, "keydown").subscribe(
+            (event) =>
+                console.log("customFromEvent keydown: ", { eventType: event.type, key: event.key })
+        );
+
+        setTimeout(() => {
+            clickSubscription.unsubscribe();
+            keyDownSubscription.unsubscribe();
+        }, 5000);
     });
 </script>
 
