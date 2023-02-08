@@ -75,8 +75,6 @@ export const newsLetters: INewsLetter[] = [
 const fundamentalRoot = '/0-fundamentals'
 const basicBuildingBlockRoot = '/1-building-blocks'
 const creationOperatorsRoot = '/2-creation-operators'
-const pipeOperatorsRoot = '/3-pipe-operators'
-const subjectsRoot = '/4-subjects'
 
 // sections -------------------------------------------
 export const sections: Item[] = [
@@ -94,16 +92,6 @@ export const sections: Item[] = [
     name: 'Creation operators',
     description: 'Creating new observables with premade functions',
     route: creationOperatorsRoot,
-  },
-  {
-    name: 'Pipe operators',
-    description: 'Transforming observables with premade functions',
-    route: pipeOperatorsRoot,
-  },
-  {
-    name: 'Subjects',
-    description: 'Broadcasting data with "observable + observer" hybrids',
-    route: subjectsRoot,
   },
 ]
 
@@ -219,91 +207,6 @@ export const combinationCreationOperatorsLessons: Item[] = [
   },
 ]
 
-/** pipe operators */
-export const pipeOperatorsLessons: Item[] = [
-  {
-    name: 'Filtering',
-    route: pipeOperatorsRoot + '/filtering',
-  },
-  {
-    name: 'Utility',
-    route: pipeOperatorsRoot + '/utility',
-  },
-  {
-    name: 'Combination',
-    route: pipeOperatorsRoot + '/combination',
-  },
-  {
-    name: 'Error handling',
-    route: pipeOperatorsRoot + '/error-handling',
-  },
-  {
-    name: 'Subscription handling',
-    route: pipeOperatorsRoot + '/subscription-handling',
-  },
-  {
-    name: 'Transformation',
-    route: pipeOperatorsRoot + '/transformation',
-  },
-]
-
-export const filteringPipeOperatorsLessons: Item[] = [
-  {
-    name: 'Filter',
-    route: pipeOperatorsRoot + '/filtering/filter',
-  },
-  {
-    name: 'DistinctUntilChanged',
-    route: pipeOperatorsRoot + '/filtering/distinctUntilChanged',
-  },
-]
-export const utilityPipeOperatorsLessons: Item[] = [
-  {
-    name: 'Tap',
-    route: pipeOperatorsRoot + '/utility/tap',
-  },
-]
-export const combinationPipeOperatorsLessons: Item[] = [
-  {
-    name: 'WithLatestFrom',
-    route: pipeOperatorsRoot + '/combination/withLatestFrom',
-  },
-]
-export const errorHandlingPipeOperatorsLessons: Item[] = [
-  {
-    name: 'CatchError',
-    route: pipeOperatorsRoot + '/error-handling/catchError',
-  },
-]
-export const subscriptionHandlingPipeOperatorsLessons: Item[] = [
-  {
-    name: 'TakeUntil',
-    route: pipeOperatorsRoot + '/subscription-handling/takeUntil',
-  },
-]
-export const transformationPipeOperatorsLessons: Item[] = [
-  {
-    name: 'Map',
-    route: pipeOperatorsRoot + '/transformation/map',
-  },
-  {
-    name: 'Flattening',
-    route: pipeOperatorsRoot + '/transformation/flattening',
-  },
-]
-
-/** subjects */
-export const subjectsLessons: Item[] = [
-  {
-    name: 'Subject',
-    route: subjectsRoot + '/subject',
-  },
-  {
-    name: 'BehaviorSubject',
-    route: subjectsRoot + '/behaviorSubject',
-  },
-]
-
 
 export const itemCollections = {
   SECTIONS: sections,
@@ -317,16 +220,6 @@ export const itemCollections = {
   TIME_CREATION_OPERATORS: timeCreationOperatorsLessons,
   HTTP_CREATION_OPERATORS: httpCreationOperatorsLessons,
   COMBINATION_CREATION_OPERATORS: combinationCreationOperatorsLessons,
-
-  PIPE_OPERATORS: pipeOperatorsLessons,
-  FILTERING_PIPE_OPERATORS: filteringPipeOperatorsLessons,
-  UTILITY_PIPE_OPERATORS: utilityPipeOperatorsLessons,
-  COMBINATION_PIPE_OPERATORS: combinationPipeOperatorsLessons,
-  ERROR_HANDLING_PIPE_OPERATORS: errorHandlingPipeOperatorsLessons,
-  SUBSCRIPTION_HANDLING_PIPE_OPERATORS: subscriptionHandlingPipeOperatorsLessons,
-  TRANSFORMATION_PIPE_OPERATORS: transformationPipeOperatorsLessons,
-
-  SUBJECTS: subjectsLessons,
 }
 
 
