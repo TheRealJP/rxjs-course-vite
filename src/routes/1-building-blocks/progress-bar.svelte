@@ -1,28 +1,29 @@
 <script lang="ts">
     import { Observable } from "rxjs";
+    import { onMount } from "svelte";
 
     // use these html elements to update the styling
-    const progressColor =
-        document.querySelector<HTMLElement>(".progress-color");
-    const progressText = document.querySelector<HTMLElement>(".progress-text");
+    let progressColor: HTMLElement;
+    let progressText: HTMLElement;
 
-    const progressBar$ = new Observable<number>((subscriber) => {
-        const speed = 50;
+    // runs when the HTML in this file is loaded to the DOM
+    onMount(() => {
 
-        // ----------- create a producer that increments from 0 to 100 -----------
-    });
+        const progressCount$ = new Observable<number>((subscriber) => {
+            const speed = 50;
 
-    // update styling based on the incoming notification type
-    progressBar$.subscribe({
-        next: (progressCount) => {},
-        error: (error) => {},
-        complete: () => {},
+            // ----------- create a producer that increments from 0 to 100 -----------
+        });
+
+        // shared style for progress bar
+        progressColor.style.position = "absolute";
+
+        // update styling based on the incoming notification type
     });
 </script>
 
-<section class="progress-container flex h-full">
-    <div class="progress-color" />
-    <div
-        class="progress-text absolute w-full -ml-4 top-1/2 left-1/2 text-6xl"
-    />
+<section>
+    <!-- binds HTMLElement objects to divs so we can interact with them in the script tag-->
+    <div bind:this={progressColor} class="h-full"/>
+    <div bind:this={progressText} />
 </section>
