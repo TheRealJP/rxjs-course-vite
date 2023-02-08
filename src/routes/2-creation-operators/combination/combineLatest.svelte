@@ -2,9 +2,11 @@
     import { schoolClassMap } from "$utils/constants";
     import type { ISchoolClass } from "$utils/interfaces";
     import { getFullObserver } from "$utils/rxjs-prefab";
-    import { fromEvent, throwError } from "rxjs";
+    import { combineLatest, fromEvent, of, throwError, timer } from "rxjs";
+    import { ajax } from "rxjs/ajax";
     import { fromFetch } from "rxjs/fetch";
     import { onMount } from "svelte";
+    const fullObserver = getFullObserver("combineLatest");
 
     /** --- basic behaviors --- */
     const mouseClick$ = fromEvent<MouseEvent>(document, "click");
@@ -13,9 +15,21 @@
         selector: (response) => response.json(),
     });
     const error$ = throwError(() => "Something went wrong");
-    const fullObserver = getFullObserver("combineLatest");
 
-    /** --- classic combineLatest use case: applying filter criteria --- */
+    const combineLatest$ = combineLatest([httpCall$, mouseClick$, keyInput$]);
+    // combineLatest$.subscribe(([httpResponse, mouseClickData, keyInputData]) => {
+    //     console.log({
+    //         httpResponse: httpResponse.activity,
+    //         mousePosition: `${mouseClickData.clientX}/${mouseClickData.clientY}`,
+    //         keyboardKey: keyInputData.key,
+    //     });
+    // })
+
+    // combineLatest([mouseClick$, keyInput$, error$]).subscribe(fullObserver);
+
+    // combineLatest([]).subscribe(fullObserver);
+
+    /** --- common use case for combineLatest: applying filter criteria --- */
     const schoolClasses: ISchoolClass[] = [
         schoolClassMap.biology,
         schoolClassMap.mathematics,
@@ -27,6 +41,29 @@
     onMount(() => {
         const categoryDropdown = document.getElementById("category-dropdown");
         const titleSearch = document.getElementById("title-search");
+        const categoryDropdown$ = fromEvent<Event>(categoryDropdown, "change");
+        const titleSearch$ = fromEvent<InputEvent>(titleSearch, "input");
+
+        const subscription = combineLatest([categoryDropdown$, titleSearch$]).subscribe(
+            ([dropdownValue, titleValue]) => {
+                const title = (titleValue.target as any).value;
+                const category = (dropdownValue.target as any).value;
+
+                filteredClasses = schoolClasses.filter(
+                    (cl) => cl.title.includes(title) && cl.category === category
+                );
+
+                // if default is selected show all the classes and only allow filtering on title
+                if (category === "default") {
+                    filteredClasses = schoolClasses.filter((cl) => cl.title.includes(title));
+                }
+            }
+        );
+
+        timer(7000).subscribe(() => {
+            subscription.unsubscribe();
+            console.log("combineLatest unsubscribed!");
+        });
     });
 </script>
 
