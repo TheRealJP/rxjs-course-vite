@@ -36,32 +36,6 @@
   import CombineLatest from "$routes/2-creation-operators/combination/combineLatest.svelte";
   import ForkJoin from "$routes/2-creation-operators/combination/forkJoin.svelte";
   // ----------------------------
-  import PipeOperatorsIndex from "$routes/3-pipe-operators/pipe-operators-index.svelte";
-  import TransformationIndex from "$routes/3-pipe-operators/transformation/transformation-index.svelte";
-  import SubscriptionHandlingIndex from "$routes/3-pipe-operators/subscription-handling/subscription-handling-index.svelte";
-  import ErrorHandlingIndex from "$routes/3-pipe-operators/error-handling/error-handling-index.svelte";
-  import UtilityIndex from "$routes/3-pipe-operators/utility/utility-index.svelte";
-  import FilteringIndex from "$routes/3-pipe-operators/filtering/filtering-index.svelte";
-  import CombinationPipeIndex from "$routes/3-pipe-operators/combination/combination-pipe-index.svelte";
-
-  import Filter from "$routes/3-pipe-operators/filtering/filter.svelte";
-  import DistinctUntilChanged from "$routes/3-pipe-operators/filtering/distinctUntilChanged.svelte";
-
-  import Tap from "$routes/3-pipe-operators/utility/tap.svelte";
-
-  import WithLatestFrom from "$routes/3-pipe-operators/combination/withLatestFrom.svelte";
-
-  import CatchError from "$routes/3-pipe-operators/error-handling/catchError.svelte";
-
-  import TakeUntil from "$routes/3-pipe-operators/subscription-handling/takeUntil.svelte";
-
-  import Map from "$routes/3-pipe-operators/transformation/map.svelte";
-  import Flattening from "$routes/3-pipe-operators/transformation/flattening.svelte";
-  // ----------------------------
-  import SubjectsIndex from "$routes/4-subjects/subjects-index.svelte";
-  import Subject from "$routes/4-subjects/subject.svelte";
-  import BehaviorSubject from "$routes/4-subjects/behavior-subject.svelte";
-  // ----------------------------
 
   let routes = {
     // root
@@ -99,35 +73,6 @@
     // combination
     "/2-creation-operators/combination/forkJoin": ForkJoin,
     "/2-creation-operators/combination/combineLatest": CombineLatest,
-
-    // pipe operators
-    "/3-pipe-operators/": PipeOperatorsIndex,
-    "/3-pipe-operators/filtering": FilteringIndex,
-    "/3-pipe-operators/utility": UtilityIndex,
-    "/3-pipe-operators/combination": CombinationPipeIndex,
-    "/3-pipe-operators/error-handling": ErrorHandlingIndex,
-    "/3-pipe-operators/subscription-handling": SubscriptionHandlingIndex,
-    "/3-pipe-operators/transformation": TransformationIndex,
-
-    // filtering
-    "/3-pipe-operators/filtering/filter": Filter,
-    "/3-pipe-operators/filtering/distinctUntilChanged": DistinctUntilChanged,
-    // utility
-    "/3-pipe-operators/utility/tap": Tap,
-    // combination
-    "/3-pipe-operators/combination/withLatestFrom": WithLatestFrom,
-    // error handling
-    "/3-pipe-operators/error-handling/catchError": CatchError,
-    // subscription handling
-    "/3-pipe-operators/subscription-handling/takeUntil": TakeUntil,
-    // transformation
-    "/3-pipe-operators/transformation/map": Map,
-    "/3-pipe-operators/transformation/flattening": Flattening,
-
-    // pipe operators
-    "/4-subjects/": SubjectsIndex,
-    "/4-subjects/subject": Subject,
-    "/4-subjects/behaviorSubject": BehaviorSubject,
 
     // not found
     "*": NotFound,
