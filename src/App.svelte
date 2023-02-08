@@ -58,10 +58,6 @@
   import Map from "$routes/3-pipe-operators/transformation/map.svelte";
   import Flattening from "$routes/3-pipe-operators/transformation/flattening.svelte";
   // ----------------------------
-  import SubjectsIndex from "$routes/4-subjects/subjects-index.svelte";
-  import Subject from "$routes/4-subjects/subject.svelte";
-  import BehaviorSubject from "$routes/4-subjects/behavior-subject.svelte";
-  // ----------------------------
 
   let routes = {
     // root
@@ -123,11 +119,6 @@
     // transformation
     "/3-pipe-operators/transformation/map": Map,
     "/3-pipe-operators/transformation/flattening": Flattening,
-
-    // pipe operators
-    "/4-subjects/": SubjectsIndex,
-    "/4-subjects/subject": Subject,
-    "/4-subjects/behaviorSubject": BehaviorSubject,
 
     // not found
     "*": NotFound,
