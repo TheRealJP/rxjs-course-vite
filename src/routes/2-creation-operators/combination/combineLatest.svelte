@@ -1,12 +1,9 @@
 <script lang="ts">
     import { schoolClassMap } from "$utils/constants";
     import type { ISchoolClass } from "$utils/interfaces";
-    import { getFullObserver } from "$utils/rxjs-prefab";
-    import { combineLatest, fromEvent, of, throwError, timer } from "rxjs";
-    import { ajax } from "rxjs/ajax";
+    import { combineLatest, fromEvent, throwError, timer } from "rxjs";
     import { fromFetch } from "rxjs/fetch";
     import { onMount } from "svelte";
-    const fullObserver = getFullObserver("combineLatest");
 
     /** --- basic behaviors --- */
     const mouseClick$ = fromEvent<MouseEvent>(document, "click");
