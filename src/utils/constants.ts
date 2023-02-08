@@ -76,7 +76,6 @@ const fundamentalRoot = '/0-fundamentals'
 const basicBuildingBlockRoot = '/1-building-blocks'
 const creationOperatorsRoot = '/2-creation-operators'
 const pipeOperatorsRoot = '/3-pipe-operators'
-const subjectsRoot = '/4-subjects'
 
 // sections -------------------------------------------
 export const sections: Item[] = [
@@ -99,12 +98,7 @@ export const sections: Item[] = [
     name: 'Pipe operators',
     description: 'Transforming observables with premade functions',
     route: pipeOperatorsRoot,
-  },
-  {
-    name: 'Subjects',
-    description: 'Broadcasting data with "observable + observer" hybrids',
-    route: subjectsRoot,
-  },
+  }
 ]
 
 // lessons -------------------------------------------
@@ -292,19 +286,6 @@ export const transformationPipeOperatorsLessons: Item[] = [
   },
 ]
 
-/** subjects */
-export const subjectsLessons: Item[] = [
-  {
-    name: 'Subject',
-    route: subjectsRoot + '/subject',
-  },
-  {
-    name: 'BehaviorSubject',
-    route: subjectsRoot + '/behaviorSubject',
-  },
-]
-
-
 export const itemCollections = {
   SECTIONS: sections,
 
@@ -325,8 +306,6 @@ export const itemCollections = {
   ERROR_HANDLING_PIPE_OPERATORS: errorHandlingPipeOperatorsLessons,
   SUBSCRIPTION_HANDLING_PIPE_OPERATORS: subscriptionHandlingPipeOperatorsLessons,
   TRANSFORMATION_PIPE_OPERATORS: transformationPipeOperatorsLessons,
-
-  SUBJECTS: subjectsLessons,
 }
 
 
