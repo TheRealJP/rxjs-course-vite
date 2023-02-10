@@ -27,3 +27,13 @@
     <div bind:this={progressColor} class="h-full"/>
     <div bind:this={progressText} />
 </section>
+
+<style>
+    .progress-color {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        background-color: yellow;
+    }
+</style>
