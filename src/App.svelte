@@ -27,7 +27,6 @@
   import Of from "$routes/2-creation-operators/basic/of.svelte";
   import From from "$routes/2-creation-operators/basic/from.svelte";
   import FromEvent from "$routes/2-creation-operators/basic/fromEvent.svelte";
-  import Range from "$routes/2-creation-operators/basic/range.svelte";
 
   import TimerAndInterval from "$routes/2-creation-operators/time/timer-and-interval.svelte";
 
@@ -90,7 +89,6 @@
     // basic
     "/2-creation-operators/basic/of": Of,
     "/2-creation-operators/basic/from": From,
-    "/2-creation-operators/basic/range": Range,
     "/2-creation-operators/basic/fromEvent": FromEvent,
     // time
     "/2-creation-operators/time/timer-and-interval": TimerAndInterval,
