@@ -5,7 +5,7 @@
         numberObservable$,
         stringIntervalObservable$,
         stringObservable$,
-    } from "$utils/observable-examples";
+    } from "$utils/rxjs-prefab";
     import { Subscription } from "rxjs";
     /** finite observables */
     // const finiteStringSubscription = stringObservable$.subscribe({
