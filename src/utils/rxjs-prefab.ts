@@ -16,7 +16,7 @@ export const activityPromise = new Promise((resolve, reject) => {
 });
 export const activityErrorPromise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    // reject("something went wrong");
+    reject("something went wrong");
   }, 2000);
 });
 
