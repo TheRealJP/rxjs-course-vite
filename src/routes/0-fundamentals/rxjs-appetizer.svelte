@@ -16,7 +16,8 @@
     let currentActivity = "nothing";
 
     /** promise */
-    activityPromise.then(
+    // activityPromise.then(
+    activityErrorPromise.then(
         (activity: IActivity) => {
             currentActivity = activity.description;
             console.log(currentActivity);
@@ -27,7 +28,8 @@
     );
 
     /** observable */
-    activityHttpCall$.subscribe({
+    // activityHttpCall$.subscribe({
+    activityErrorHttpCall$.subscribe({
         next: (activity: IActivity) => {
             currentActivity = activity.description;
             console.log(currentActivity);
