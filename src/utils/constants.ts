@@ -179,10 +179,6 @@ export const basicCreationOperatorsLessons: Item[] = [
     route: creationOperatorsRoot + '/basic/from',
   },
   {
-    name: 'Range',
-    route: creationOperatorsRoot + '/basic/range',
-  },
-  {
     name: 'FromEvent',
     route: creationOperatorsRoot + '/basic/fromEvent',
   },
