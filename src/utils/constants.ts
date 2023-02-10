@@ -1,9 +1,4 @@
-// interfaces -------------------------------------------
-export interface Item {
-  name: string,
-  description: string,
-  route: string,
-}
+import type { Item } from "$utils/interfaces"
 
 // root paths -------------------------------------------
 const fundamentalRoot = '/0-fundamentals'
@@ -26,13 +21,18 @@ export const sections: Item[] = [
 // lessons -------------------------------------------
 export const fundamentalConceptsLessons: Item[] = [
   {
+    name: 'Appetizer',
+    description: '',
+    route: fundamentalRoot + '/appetizer',
+  },
+  {
     name: 'Iterator pattern',
-    description: 'Iterate over any collection',
+    description: '',
     route: fundamentalRoot + '/iterator',
   },
   {
     name: 'Observer pattern',
-    description: 'Notify changes to observers',
+    description: '',
     route: fundamentalRoot + '/observer',
   },
 ]

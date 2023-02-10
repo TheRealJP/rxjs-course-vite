@@ -13,10 +13,9 @@
 
             // ----------- create a producer that increments from 0 to 100 -----------
             let counter = 0;
-
             const intervalId = setInterval(() => {
                 if (counter > 100) subscriber.complete();
-                if (counter > 30) subscriber.error("Something went wrong!");
+                // if (counter > 30) subscriber.error("Something went wrong!");
 
                 subscriber.next(counter++);
             }, speed);
@@ -29,21 +28,26 @@
         // update styling based on the incoming notification type
         progressCount$.subscribe({
             next: (progressCount) => {
-                progressColor.style.width = progressCount + "%";
                 progressText.textContent = progressCount + "%";
+
+                progressColor.style.width = progressCount + "%";
+                progressColor.style.backgroundColor = "yellow";
+                progressColor.style.left = "0";
+                progressColor.style.top = "0";
+                progressColor.style.zIndex = "-1";
             },
             error: (error) => {
-                progressColor.style.backgroundColor = "red";
-                progressColor.style.width = "100%";
-
                 progressText.textContent = error;
                 progressText.style.color = "#fff";
+
+                progressColor.style.width = "100%";
+                progressColor.style.backgroundColor = "red";
             },
             complete: () => {
-                progressColor.style.backgroundColor = "forestgreen";
-                progressText.style.color = "#fff";
                 progressText.textContent = "Complete!";
+                progressText.style.color = "#fff";
 
+                progressColor.style.backgroundColor = "forestgreen";
             },
         });
     });

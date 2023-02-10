@@ -6,6 +6,7 @@
   import NotFound from "$routes/not-found.svelte";
   import Index from "$routes/index.svelte";
   // ----------------------------
+  import RxjsAppetizer from "$routes/0-fundamentals/rxjs-appetizer.svelte";
   import Iterator from "$routes/0-fundamentals/iterator-pattern.svelte";
   import Observer from "$routes/0-fundamentals/observer-pattern.svelte";
   import FundamentalsIndex from "$routes/0-fundamentals/fundamentals-index.svelte";
@@ -25,6 +26,7 @@
 
     // fundamentals
     "/0-fundamentals/": FundamentalsIndex,
+    "/0-fundamentals/appetizer": RxjsAppetizer,
     "/0-fundamentals/iterator": Iterator,
     "/0-fundamentals/observer": Observer,
 

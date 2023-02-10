@@ -5,10 +5,10 @@
         numberObservable$,
         stringIntervalObservable$,
         stringObservable$,
-    } from "$utils/observable-examples";
+    } from "$utils/rxjs-prefab";
     import { Subscription } from "rxjs";
 
-    // /** finite observables */
+    /** finite observables */
     // const finiteStringSubscription = stringObservable$.subscribe({
     //     next: (string) => console.log("(finite) stringObservable:", string),
     //     complete: () => console.log("(finite) stringObservable: Completed"),
@@ -18,7 +18,7 @@
     //     complete: () => console.log("(finite) numberObservable: Completed"),
     // });
 
-    // /** unsubscribing finite observables */
+    /** unsubscribing finite observables */
     // finiteNumberSubscription.unsubscribe();
 
     /** infinite observables */
@@ -30,11 +30,6 @@
     //     (stringInterval) =>
     //         console.log("(infinite) string interval:", stringInterval)
     // );
-
-    // --- unsubscribe strategies ---
-    // one by one
-    // grouped
-    // (takeUntil)
 
     // // unsubscribing each subscription one by one
     // setTimeout(() => {
