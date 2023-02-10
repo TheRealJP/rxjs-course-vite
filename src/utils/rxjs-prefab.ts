@@ -1,5 +1,38 @@
 import { Observable } from "rxjs";
 
+
+/**
+ * --------------------------------------------------------------
+ * This file contains premade custom rxjs observables, functions & promises
+ * --------------------------------------------------------------
+ */
+
+const activity = (sourceType: string) => ({ description: `baking a ${sourceType} cake` })
+
+export const activityPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(activity("promise"));
+  }, 2000);
+});
+export const activityErrorPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    // reject("something went wrong");
+  }, 2000);
+});
+
+export const activityHttpCall$ = new Observable(subscriber => {
+  setTimeout(() => {
+    subscriber.next(activity("observable"));
+    subscriber.complete()
+  }, 2000);
+});
+
+export const activityErrorHttpCall$ = new Observable(subscriber => {
+  setTimeout(() => subscriber.error("something went wrong"), 2000);
+})
+
+
+// observables with primitive producers
 export const stringObservable$ = new Observable(subscriber => {
   setTimeout(() => {
     ['Charlie', 'Alice', 'Bob'].forEach(val => subscriber.next(val))
@@ -21,11 +54,6 @@ export const numberObservable$ = new Observable(subscriber => {
 });
 
 
-
-
-
-
-
 // interval observables
 export const numberIntervalObservable$ = new Observable<number>(subscriber => {
   let counter = 0;
@@ -39,6 +67,7 @@ export const numberIntervalObservable$ = new Observable<number>(subscriber => {
     clearInterval(intervalId);
   };
 });
+
 export const stringIntervalObservable$ = new Observable<string>(subscriber => {
   let counter = 0;
 
@@ -50,17 +79,4 @@ export const stringIntervalObservable$ = new Observable<string>(subscriber => {
     console.log('stringIntervalObservable$ teardown function activated');
     clearInterval(intervalId);
   };
-});
-
-// Http observables
-export const fakeServerRequestObservable$ = new Observable(observer => {
-  setTimeout(() => {
-    observer.next({ data: 'Some data returned from server' })
-    observer.complete()
-  }, 2000)
-});
-export const fakeServerRequestErrorObservable$ = new Observable(observer => {
-  setTimeout(() => {
-    observer.error('Something went wrong during server request')
-  }, 2000)
 });

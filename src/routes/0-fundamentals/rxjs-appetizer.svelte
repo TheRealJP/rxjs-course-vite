@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { activityErrorHttpCall$, activityErrorPromise, activityHttpCall$, activityPromise } from '$utils/rxjs-prefab';
     import Page from "$lib/Page.svelte";
     import type { IActivity } from "$utils/interfaces";
-    import { activityErrorHttpCall$, activityErrorPromise, activityHttpCall$, activityPromise } from "$utils/rxjs-prefab";
 
     /** eventListener */
     document.addEventListener("click", (clickEvent) => {
@@ -16,7 +16,7 @@
     let currentActivity = "nothing";
 
     /** promise */
-    activityErrorPromise.then(
+    activityPromise.then(
         (activity: IActivity) => {
             currentActivity = activity.description;
             console.log(currentActivity);
@@ -27,7 +27,7 @@
     );
 
     /** observable */
-    activityErrorHttpCall$.subscribe({
+    activityHttpCall$.subscribe({
         next: (activity: IActivity) => {
             currentActivity = activity.description;
             console.log(currentActivity);
