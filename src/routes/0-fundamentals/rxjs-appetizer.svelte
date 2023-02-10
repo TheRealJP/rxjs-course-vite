@@ -20,10 +20,10 @@
     activityErrorPromise.then(
         (activity: IActivity) => {
             currentActivity = activity.description;
-            console.log(currentActivity);
+            console.log("promise value: ", currentActivity);
         },
         (error) => {
-            console.error(error);
+            console.error("promise error: ", error);
         }
     );
 
@@ -32,9 +32,9 @@
     activityErrorHttpCall$.subscribe({
         next: (activity: IActivity) => {
             currentActivity = activity.description;
-            console.log(currentActivity);
+            console.log("observable value: ", currentActivity);
         },
-        error: (error) => console.error(error),
+        error: (error) => console.error("observable error: ", error),
     });
 </script>
 
