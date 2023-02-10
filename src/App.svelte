@@ -7,6 +7,7 @@
   import BuildingBlocksIndex from "./routes/1-building-blocks/building-blocks-index.svelte";
   import Index from "./routes/index.svelte";
   import NotFound from "./routes/not-found.svelte";
+  import RxjsAppetizer from "./routes/0-fundamentals/rxjs-appetizer.svelte";
   import Iterator from "./routes/0-fundamentals/iterator-pattern.svelte";
   import Observer from "./routes/0-fundamentals/observer-pattern.svelte";
   import Router from "svelte-spa-router";
@@ -21,6 +22,7 @@
 
     // fundamentals
     "/0-fundamentals/": FundamentalsIndex,
+    "/0-fundamentals/appetizer": RxjsAppetizer,
     "/0-fundamentals/iterator": Iterator,
     "/0-fundamentals/observer": Observer,
 
